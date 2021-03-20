@@ -1,0 +1,149 @@
+/*main style for meet project */
+
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+
+/*.btn-use:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 45px;
+	background: blue;
+	border-radius: 5px;
+	transition: all 2s ease;
+}
+
+
+.btn-use a:hover{
+	width: 100%;
+}*/
+
+.btn-use {
+	display: block;
+    margin-top: 15px;
+    border: none;
+    width: 100px;
+    padding: 7px;
+    text-align: center;
+    background-color: #EE1D23;
+    color: white;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+
+.filtr-meet {
+	text-align: right;
+    position: relative;
+    left: 18px;
+}
+
+#block-story-meet {
+	margin-top: 50px;
+}
+
+#pulse-today {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(1);
+    animation: pulse 2s infinite;
+}
+
+.icon-block-meet button {
+	border: none;
+    color: white;
+    padding: 8px;
+    background: #EE1D23;
+    width: 50;
+    height: 40px0px;
+    font-size: 16px;
+    margin-right: 3px;
+}
+
+.icon-block-meet {
+	display: inline-flex;
+	margin: 3px;
+}
+#date-meet {
+	padding: 3px;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+.last-block-meet {
+	margin-top: 50px;
+    border: 1px solid #EE1D23;
+    color: white;
+    background-color: #EE1D23;
+}
+
+.last-block-meet h4 {
+	margin-top: 5px;
+}
+/*create page*/
+
+#create-page h4 {
+	margin-top: 40px;
+	margin-bottom: 30px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#create-btn-group {
+	display: inline-flex;
+	margin-top: 15px;
+}
+#create-btn-group button {
+	margin-right: 10px;
+}
+
+#create-page input, textarea, select{
+	width: 250px;
+    border: none;
+    border-bottom: 2px solid #EE1D23;
+    padding-bottom: 8px;
+    background: transparent;
+}
+
+#create-page input, textarea, select:hover, focus{
+    border: none;
+    border-bottom: 2px solid #EE1D23;
+    padding-bottom: 8px;
+
+}
+
+#create-page ol {
+	padding-left: 12px;
+}
+
+#create-page ol li {
+	padding: 5px;
+	font-size: 14px;
+}
+
+
+
+
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(238,29,35);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+

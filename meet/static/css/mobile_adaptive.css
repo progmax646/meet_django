@@ -1,0 +1,66 @@
+#mobile-table {
+	display: none;
+}
+
+@media (min-width: 375px){
+	.table {
+		display: none;
+	}
+	#last-meet{
+	   display: block;
+	}
+	#mobile-table {
+		display: block;
+
+	}
+
+	#mobile-table ol {
+		list-style-type: none;
+	    width: 350px;
+	    background-color: #EE1D23;
+	    padding: 10px;
+	    color: white;
+	    -webkit-box-shadow: 5px 5px 15px 5px rgb(0 0 0 / 18%);
+	}
+	#pulse-mobile-table {
+		list-style-type: none;
+	    width: 350px;
+	    background-color: #EE1D23;
+	    padding: 10px;
+	    color: white;
+	    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+        transform: scale(1);
+        animation: pulse 2s infinite;
+	}
+
+}
+
+@media (min-width: 992px){
+	.table {
+		display: table;
+	}
+	#mobile-table {
+		display: none;
+	}
+	#create-page {
+		display: block;
+	}
+}
+
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(238,29,35);
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}

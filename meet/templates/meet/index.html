@@ -1,0 +1,142 @@
+{% extends 'meet/base.html' %}
+
+{% block 'content' %}
+    <div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center" style="margin-top: 25px; font-weight: 600; color: #636366;">Конструктор встреч <span class="badge badge-danger">LegalAct</span></h1>
+			</div>
+			<div class="col-md-3" style="padding-left:24px; display: inline-flex;margin-top: 25px;">
+				<a href="{% url 'meet_create' %}" class="btn-use" style="margin-right: 5px; height: 37px;">Создать</a>
+				<a href="{% url 'meet_logout' %}" class="btn-use" style="height: 37px;">Выход</a>
+			</div>
+			<div class="col-md-4 offset-md-5 col-6" style="padding-left: 0px;">
+				<div class="filtr-meet">
+					<form style="display: -webkit-inline-box; margin-top: 25px;" action="{% url 'meet_search' %}" method="POST">
+						{% csrf_token %}
+						<input type="date" name="date-meet" id="date" style="margin: 20px 5px;height: 40px; width: 166px;position: relative;bottom: 5px; background-color: transparent;     border: 2px solid red;padding: 2px;">
+						<button type="submit" class="btn-use" style="height: 40px;">Поиск</button>
+					</form>
+					<script>
+						function getDate(){
+							var today = new Date();
+							document.getElementById("date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+						}
+					</script>
+				</div>
+			</div>
+		</div>
+
+	<div class="row">
+		<div class="col-md-9 col-sm-12" id="block-story-meet">
+			<h4 style="margin-bottom: 35px;">Список</h4>
+			<table class="table">
+				<thead style="background: #EE1D23; color: white; padding: 5px;">
+					<tr>
+						<th>#</th>
+						<th>Client</th>
+						<th>Date</th>
+						<th>Description</th>
+						<th>Status</th>
+						<th>Service</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for meet in meets_today %}
+					<tr>
+						<td>1</td>
+						<td>{{meet.client_name}}</td>
+						<td> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+						<td>{{meet.description}}</td>
+						<td>
+							{% if meet.status == 0%}
+							<span class="badge badge-info" style="background-color:#939598;" id="pulse-today">В процессе</span>
+							{% elif meet.status == 1%}
+							<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+							{% else %}
+							<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+							{% endif %}
+						</td>
+						<td>
+							<div class="icon-block-meet">
+								<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-pencil-square-o"></i></button>
+								<form action="{% url 'meet_delete' %}" method="POST">
+									{% csrf_token %}
+									<input type="hidden" value="{{meet.id}}" name="meet_id">
+									<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+								</form>
+								<button type="button" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+							</div>
+						</td>
+					</tr>
+<!--				mobile table -->
+					<div id="mobile-table" class="col-10 col-md-9">
+						<ol style="list-style-type: none;" id="pulse-mobile-table">
+							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
+							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+							<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
+							<li>Статус:  <span style="margin-left: 84px;">
+								{% if meet.status == 0%}
+								<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+								{% elif meet.status == 1%}
+								<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+								{% else %}
+								<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+								{% endif %}
+							</span></li>
+							<li>Сервис:  <span>
+								<div class="icon-block-meet" style="margin-left: 68px;">
+								<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button>
+
+								<form action="{% url 'meet_delete' %}" method="POST">
+									{% csrf_token %}
+									<input type="hidden" value="{{meet.id}}" name="meet_id">
+									<button type="submit" style="font-size: 20px;margin-bottom: 1px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+								</form>
+									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+							</span></li>
+
+						</ol>
+					</div>
+						<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование даты {{meet.client_name}}</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							         <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							    <div class="modal-body">
+								  <form action="{% url 'meet_edit' %}" method="POST">
+								  {% csrf_token %}
+								  <input type="datetime-local" value="{{meet.date}}" name="meet_date">
+								  <input type="hidden" name="meet_id" value="{{meet.id}}">
+								  <button type="submit" class="btn-use">Сохранить</button>
+								  </form>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				{% if meets %}
+				{% include "meet/all_meets.html" %}
+				{% endif %}
+				</tbody>
+			</table>
+		</div>
+		<hr>
+		<div class="col-md-3 col-10 last-block-meet" style="display: block;margin: 0 auto;margin-top: 114px; height: 460px;">
+			<h4 style="padding-top: 25px;">Последнее добавление</h4>
+			<table class="table" id="last-meet">
+				<tbody>
+				{% for item in last_meet %}
+					<tr>
+						<td>{{item.client_name}}</td>
+						<td>{{item.date}}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
