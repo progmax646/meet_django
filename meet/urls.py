@@ -11,4 +11,4 @@ urlpatterns = [
     path('search', views.search, name='meet_search'),
     path('login', views.login_meet, name='meet_login'),
     path('logout', views.logout_meet, name='meet_logout')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

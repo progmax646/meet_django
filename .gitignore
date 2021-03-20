@@ -2,4 +2,5 @@ gunicorn.conf.py
 meet.conf
 debug.log
 prod_settings.py
+req.txt
 /env/*
