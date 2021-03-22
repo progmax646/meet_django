@@ -6,6 +6,8 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import httplib2
+import urllib
 
 
 def login_meet(request):
@@ -57,6 +59,7 @@ def edit(request):
         meet_id = request.POST['meet_id']
         date = request.POST['meet_date']
         url = 'https://api.telegram.org/bot624760197:AAG9MBX5LwqpbVNfoshJvWO_xRT-3Feuy48/sendMessage'
+        query = httplib2.Http()
         try:
             meet = Task_meet.objects.get(pk=meet_id)
             meet.date = date
@@ -65,8 +68,9 @@ def edit(request):
                 'chat_id':272339311,
                 'text':f'Дата клиента на встречу изменена на {meet.date}'
             }
-            r = requests.get(url=url, params=params)
-            print(r.json())
+            body = urllib.parse.urlencode(params)
+            query.request(uri=url, method='GET', body=body)
+            print(query.connections)
         except Exception as e:
             return HttpResponse(e)
 
