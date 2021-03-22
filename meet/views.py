@@ -60,18 +60,15 @@ def edit(request):
         date = request.POST['meet_date']
         url = 'https://api.telegram.org/bot624760197:AAG9MBX5LwqpbVNfoshJvWO_xRT-3Feuy48/sendMessage'
         query = httplib2.Http()
-        try:
-            meet = Task_meet.objects.get(pk=meet_id)
-            meet.date = date
-            meet.save()
-            params = {
-                'chat_id':272339311,
-                'text':f'Дата клиента на встречу изменена на {meet.date}'
-            }
-            body = urllib.parse.urlencode(params)
-            query.request(uri=url, method='GET', body=body)
-        except Exception as e:
-            pass
+        meet = Task_meet.objects.get(pk=meet_id)
+        meet.date = date
+        meet.save()
+        params = {
+            'chat_id': 272339311,
+            'text': f'Дата клиента на встречу изменена на {meet.date}'
+        }
+        body = urllib.parse.urlencode(params)
+        query.request(uri=url, method='GET', body=body)
 
         return redirect('/meet')
 
