@@ -31,7 +31,6 @@ def index(request):
     meets_today = Task_meet.objects.filter(date__startswith=today)
     meets = Task_meet.objects.all().exclude(date__startswith=today)
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5]
-    print(meets_last_update)
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update, 'today':today})
 
 def create(request):
