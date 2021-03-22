@@ -70,7 +70,6 @@ def edit(request):
             }
             body = urllib.parse.urlencode(params)
             query.request(uri=url, method='GET', body=body)
-            print(query.connections)
         except Exception as e:
             return HttpResponse(e)
 
@@ -88,7 +87,6 @@ def delete(request):
             'text': f'Клиент {meet.client_name} удален с базы встреч'
         }
         r = requests.get(url=url, params=params)
-        print(r.json())
     except Exception as e:
         return HttpResponse(e)
 
