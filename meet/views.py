@@ -71,7 +71,7 @@ def edit(request):
             body = urllib.parse.urlencode(params)
             query.request(uri=url, method='GET', body=body)
         except Exception as e:
-            return HttpResponse(e)
+            pass
 
         return redirect('/meet')
 
