@@ -12,7 +12,7 @@ urlpatterns = [
     path('login', views.login_meet, name='meet_login'),
     path('success', views.success_status, name='meet_success'),
     path('logout', views.logout_meet, name='meet_logout')
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
