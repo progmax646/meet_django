@@ -4,3 +4,4 @@ debug.log
 prod_settings.py
 req.txt
 /env/*
+/__pycache__/*
