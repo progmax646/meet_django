@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import httplib2
 import urllib
+import requests
 
 
 def login_meet(request):
@@ -30,7 +31,7 @@ def login_meet(request):
 
 def index(request):
     today = date.today()
-    meets_today = Task_meet.objects.filter(date__startswith=today)
+    meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0)
     meets = Task_meet.objects.all().exclude(date__startswith=today)
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update, 'today':today})
@@ -68,7 +69,10 @@ def edit(request):
             'text': f'Дата клиента на встречу изменена на {meet.date}'
         }
         body = urllib.parse.urlencode(params)
-        query.request(uri=url, method='GET', body=body)
+        try:
+            query.request(url=url, method='GET', body=body)
+        except Exception as e:
+            HttpResponse(e)
 
         return redirect('/meet')
 
@@ -95,6 +99,27 @@ def search(request):
         date = request.POST['date-meet']
         meets = Task_meet.objects.filter(date__startswith=date)
         return render(request, 'meet/search.html', {'meets':meets})
+
+
+def success_status(request):
+    meet_id = request.POST['meet_id']
+    meet = Task_meet.objects.get(pk=meet_id)
+    meet.status = 1
+    try:
+        url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
+        params = {
+            'chat_id':'1376059804',
+            'text':f'Встреча «{meet.client_name}» завершена'
+        }
+
+        r = requests.get(url=url, params=params)
+        print(r.json())
+        meet.save()
+        return redirect('/meet')
+    except Exception as e:
+        HttpResponse(e)
+
+    return redirect('/meet')
 
 
 def logout_meet(request):
