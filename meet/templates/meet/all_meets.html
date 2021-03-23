@@ -2,7 +2,7 @@
 					<tr>
 						<td>1</td>
 						<td>{{meet.client_name}}</td>
-						<td> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 						<td>{{meet.description}}</td>
 						<td>
 							{% if meet.status == 0%}
@@ -69,10 +69,9 @@
 							      </div>
 							    <div class="modal-body">
 								  <form action="{% url 'meet_edit' %}" method="POST">
-								  {% csrf_token %}
-								  <input type="datetime-local" value="{{meet.date}}" name="meet_date">
+								  <input type="datetime-local" value="{{meet.date}}" name="meet_date" id="meet_edit_date{{meet.id}}">
 								  <input type="hidden" name="meet_id" value="{{meet.id}}">
-								  <button type="submit" class="btn-use">Сохранить</button>
+								  <button type="button" class="btn-use" onclick="edit_status({{meet.id}})">Сохранить</button>
 								  </form>
 								</div>
 							</div>

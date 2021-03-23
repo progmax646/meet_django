@@ -9,6 +9,8 @@ from django.contrib import messages
 import httplib2
 import urllib
 import requests
+from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 
 def login_meet(request):
@@ -34,7 +36,9 @@ def index(request):
     meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0)
     meets = Task_meet.objects.all().exclude(date__startswith=today)
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
-    return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update, 'today':today})
+
+    return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
+                                               'today':today})
 
 def create(request):
 
@@ -55,24 +59,22 @@ def create(request):
     return render(request, 'meet/create.html')
 
 
+@csrf_exempt
 def edit(request):
     if request.method == 'POST':
-        meet_id = request.POST['meet_id']
-        date = request.POST['meet_date']
-        url = 'https://api.telegram.org/bot624760197:AAG9MBX5LwqpbVNfoshJvWO_xRT-3Feuy48/sendMessage'
-        query = httplib2.Http()
+        meet_id = request.POST['id']
+        date = request.POST['date']
+        url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
         meet = Task_meet.objects.get(pk=meet_id)
         meet.date = date
+        meet.status = 0
         meet.save()
         params = {
-            'chat_id': 272339311,
-            'text': f'Дата клиента на встречу изменена на {meet.date}'
+            'chat_id': 1376059804,
+            'text': f'Дата клиента {meet.client_name} на встречу изменена на {meet.date}'
         }
-        body = urllib.parse.urlencode(params)
-        try:
-            query.request(url=url, method='GET', body=body)
-        except Exception as e:
-            HttpResponse(e)
+
+        r = requests.get(url=url, params=params)
 
         return redirect('/meet')
 
