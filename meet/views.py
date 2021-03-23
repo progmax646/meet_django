@@ -102,24 +102,23 @@ def search(request):
 
 
 def success_status(request):
-    meet_id = request.POST['meet_id']
-    meet = Task_meet.objects.get(pk=meet_id)
-    meet.status = 1
-    try:
-        url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
-        params = {
-            'chat_id':'1376059804',
-            'text':f'Встреча «{meet.client_name}» завершена'
-        }
+    if request.method == 'POST':
+        meet_id = request.POST['meet_id']
+        meet = Task_meet.objects.get(pk=meet_id)
+        meet.status = 1
+        try:
+            url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
+            params = {
+                'chat_id':'1376059804',
+                'text':f'Встреча «{meet.client_name}» завершена'
+            }
 
-        r = requests.get(url=url, params=params)
-        print(r.json())
-        meet.save()
-        return redirect('/meet')
-    except Exception as e:
-        HttpResponse(e)
-
-    return redirect('/meet')
+            r = requests.get(url=url, params=params)
+            print(r.json())
+            meet.save()
+            return redirect('/meet')
+        except Exception as e:
+            HttpResponse(e)
 
 
 def logout_meet(request):
