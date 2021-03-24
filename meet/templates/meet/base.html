@@ -14,7 +14,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: #eeeeee; color: #636366;">
+	{% if request.user.is_authenticated %}
 		{% include 'meet/navbar.html' %}
+	{% endif %}
 	<div class="container" id="main-container">
         {% block 'content' %}
         {% endblock %}
