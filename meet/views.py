@@ -11,6 +11,10 @@ import urllib
 import requests
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
+try:
+    from local_settings import API_TELEGRAM
+except ImportError:
+    from prod_settings import API_TELEGRAM
 
 
 def login_meet(request):
@@ -30,7 +34,6 @@ def login_meet(request):
 
 
 @login_required(login_url='/meet/login')
-
 def index(request):
     today = date.today()
     meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0)
@@ -39,7 +42,7 @@ def index(request):
 
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
                                                'today':today})
-
+@login_required(login_url='/meet/login')
 def create(request):
 
     if request.method == 'POST':
@@ -64,7 +67,7 @@ def edit(request):
     if request.method == 'POST':
         meet_id = request.POST['id']
         date = request.POST['date']
-        url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
+        url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
         meet = Task_meet.objects.get(pk=meet_id)
         meet.date = date
         meet.status = 0

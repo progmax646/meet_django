@@ -5,6 +5,7 @@
 <div class="row">
 		<div class="col-md-9 col-sm-12" id="block-story-meet">
 			<h4 style="margin-bottom: 35px;">Список</h4>
+			<a href="{% url 'meet_index' %}" class="btn-use" style="margin-bottom: 15px;">Назад</a>
 <!--			<a href="{% url 'meet_index' %}" class="btn-use" style="margin-bottom: 15px;">Назад</a>-->
 			<table class="table">
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
@@ -39,7 +40,6 @@
 <!--				mobile table -->
 
 					<div id="mobile-table" class="col-10 col-md-9">
-						<a href="{% url 'meet_index' %}" class="btn-use" style="margin-bottom: 15px;">Назад</a>
 						<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 							<li>Наименование   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 							<li>Дата встречи  <span style="margin-left: 30px;">{{meet.date}}</span></li>

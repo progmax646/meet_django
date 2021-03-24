@@ -5,17 +5,17 @@
 			<div class="col-md-12">
 				<h1 class="text-center" style="margin-top: 25px; font-weight: 600; color: #636366;">Конструктор встреч <span class="badge badge-danger">LegalAct</span></h1>
 			</div>
-			<div class="col-md-3" style="padding-left:24px; display: inline-flex;margin-top: 25px;">
-				<a href="{% url 'meet_create' %}" class="btn-use" style="margin-right: 5px; height: 37px;">Создать</a>
-				<a href="{% url 'meet_logout' %}" class="btn-use" style="height: 37px;">Выход</a>
-			</div>
-			<div class="col-md-4 offset-md-5 col-6" style="padding-left: 0px;">
+<!--			<div class="col-md-3" style="padding-left:24px; display: inline-flex;margin-top: 25px;">-->
+<!--				<a href="{% url 'meet_create' %}" class="btn-use" style="margin-right: 5px; height: 37px;">Создать</a>-->
+<!--				<a href="{% url 'meet_logout' %}" class="btn-use" style="height: 37px;">Выход</a>-->
+<!--			</div>-->
+			<div class="col-md-4 offset-md-8 col-6" style="padding-left: 0px;">
 				<div class="filtr-meet">
-					<form style="display: -webkit-inline-box; margin-top: 25px;" action="{% url 'meet_search' %}" method="POST">
-						{% csrf_token %}
-						<input type="date" name="date-meet" id="date" style="margin: 20px 5px;height: 40px; width: 166px;position: relative;bottom: 5px; background-color: transparent;     border: 2px solid red;padding: 2px;">
-						<button type="submit" class="btn-use" style="height: 40px;">Поиск</button>
-					</form>
+<!--					<form style="display: -webkit-inline-box; margin-top: 25px;" action="{% url 'meet_search' %}" method="POST">-->
+<!--						{% csrf_token %}-->
+<!--						<input type="date" name="date-meet" id="date" style="margin: 20px 10px;height: 40px; width: 166px;position: relative;bottom: 5px; background-color: transparent;     border: 2px solid red;padding: 2px;">-->
+<!--						<button type="submit" class="btn-use" style="height: 40px;">Поиск</button>-->
+<!--					</form>-->
 					<script>
 						function getDate(){
 							var today = new Date();
@@ -28,8 +28,8 @@
 
 	<div class="row">
 		<div class="col-md-9 col-sm-12" id="block-story-meet">
-			<h4 style="margin-bottom: 35px;">Список</h4>
-			<table class="table">
+			<h4 style="margin-bottom: 35px;" class="text-center">Список</h4>
+			<table class="table" style="z-index: 2">
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
 					<tr>
 						<th>#</th>
