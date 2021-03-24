@@ -85,11 +85,11 @@ def edit(request):
 def delete(request):
     meet_id = request.POST['meet_id']
     meet = Task_meet.objects.get(pk=meet_id)
-    url = 'https://api.telegram.org/bot624760197:AAG9MBX5LwqpbVNfoshJvWO_xRT-3Feuy48/sendMessage'
+    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
     try:
         meet.delete()
         params = {
-            'chat_id': 272339311,
+            'chat_id': 1376059804,
             'text': f'Клиент {meet.client_name} удален с базы встреч'
         }
         r = requests.get(url=url, params=params)
