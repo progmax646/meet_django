@@ -10,3 +10,11 @@ function edit_status(id){
       $('#meet_date'+id).text(date);
     });
 }
+
+function delete_meet(id){
+    $.post("/meet/delete", { id: id})
+    .done(function(data) {
+      $('#tr_meet'+id).hide();
+    });
+}
+

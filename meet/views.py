@@ -81,9 +81,9 @@ def edit(request):
 
         return redirect('/meet')
 
-
+@csrf_exempt
 def delete(request):
-    meet_id = request.POST['meet_id']
+    meet_id = request.POST['id']
     meet = Task_meet.objects.get(pk=meet_id)
     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
     try:

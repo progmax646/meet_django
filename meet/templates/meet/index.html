@@ -42,7 +42,7 @@
 				</thead>
 				<tbody>
 				{% for meet in meets_today %}
-					<tr>
+					<tr id="tr_meet{{meet.id}}">
 						<td>1</td>
 						<td>{{meet.client_name}}</td>
 						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
@@ -62,7 +62,7 @@
 								<form action="{% url 'meet_delete' %}" method="POST">
 									{% csrf_token %}
 									<input type="hidden" value="{{meet.id}}" name="meet_id">
-									<button type="button" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+									<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 								</form>
 								<form action="/meet/success" method="POST">
 									{% csrf_token %}
@@ -73,7 +73,7 @@
 						</td>
 					</tr>
 <!--				mobile table -->
-					<div id="mobile-table" class="col-10 col-md-9">
+					<div id="mobile-table tr_meet{{meet.id}}" class="col-10 col-md-9">
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
@@ -96,9 +96,8 @@
 									<input type="hidden" value="{{meet.id}}" name="meet_id">
 									<button type="submit" style="font-size: 20px;margin-bottom: 1px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 								</form>
-									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
 							</span></li>
-
 						</ol>
 					</div>
 						<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
