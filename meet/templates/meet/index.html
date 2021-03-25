@@ -93,7 +93,7 @@
 
 								<form action="{% url 'meet_delete' %}" method="POST">
 									{% csrf_token %}
-									<input type="hidden" value="{{meet.id}}" name="meet_id">
+									<input type="hidden" value="{{meet.id}}" name="id">
 									<button type="submit" style="font-size: 20px;margin-bottom: 1px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 								</form>
 									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
