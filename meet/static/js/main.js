@@ -15,6 +15,7 @@ function delete_meet(id){
     $.post("/meet/delete", { id: id})
     .done(function(data) {
       $('#tr_meet'+id).hide();
+      $('#ol_mobile'+id).hide();
     });
 }
 

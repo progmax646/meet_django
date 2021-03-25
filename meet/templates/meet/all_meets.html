@@ -26,7 +26,7 @@
 						</td>
 					</tr>
 <!--				mobile table -->
-					<div id="mobile-table" class="col-10 col-md-9" id="tr_meet{{meet.id}}">
+					<div id="mobile-table" class="col-10 col-md-9" >
 						<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
@@ -47,7 +47,7 @@
 								<form action="{% url 'meet_delete' %}" method="POST">
 									{% csrf_token %}
 									<input type="hidden" value="{{meet.id}}" name="meet_id">
-									<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+									<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 								</form>
 								<form action="/meet/success" method="POST">
 									{% csrf_token %}
