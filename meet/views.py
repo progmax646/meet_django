@@ -30,7 +30,6 @@ def login_meet(request):
     return render(request, 'meet/login.html')
 
 
-
 @login_required(login_url='/meet/login')
 def index(request):
     num = 0
@@ -39,13 +38,10 @@ def index(request):
     meets = Task_meet.objects.all().exclude(date__startswith=today)
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
 
-    paginator = Paginator(meets, 25)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
-                                               'today':today, 'page_obj': page_obj, 'num':num})
+                                               'today':today})
+
+
 @login_required(login_url='/meet/login')
 def create(request):
 
