@@ -159,7 +159,7 @@ def create(request):
         coming = Account_coming()
 
         coming.category = category
-        coming.date = '2021-03-28'
+        coming.date = date
         coming.summa = summa
 
         try:
