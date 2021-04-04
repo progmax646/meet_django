@@ -1,0 +1,99 @@
+{% extends 'account/base.html' %}
+{% load service_html %}
+{% block 'content' %}
+<div class="container" style="margin-top: 6%;">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="show_table()">Свод за ---</a>
+              </li>
+                {% for item in categories %}
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="main_table({{item.id}}, '{{item.name}}')">{{item.name}}</a>
+              </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-12" id="main_table">
+            <table class="table1">
+                <thead>
+                <tr>
+                    <th>---</th>
+                    {% for item in categories %}
+                    <th>{{item.name}}</th>
+                    {% endfor %}
+                    <th>Всего</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Остаток на ---</th>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                </tr>
+                <tr>
+                    <th>Приход в течении {% get_month_day month as item %} {{item}}</th>
+                    <td>{{corp_come_summa}} сум</td>
+                    <td>{{kitchen_come_summa}} сум</td>
+                    <td>{{hoz_come_summa}} сум</td>
+                    <td>{{other_come_summa}} сум</td>
+                    <td>{{karantin_come_summa}} сум</td>
+                    <td>{{total_summa}} сум</td>
+                </tr>
+                <tr>
+                    <th>Расход в течении {{item}}</th>
+                    <td>{{corp_summa_order_total}} сум</td>
+                    <td>{{kitchen_summa_order_total}} сум</td>
+                    <td>{{hoz_summa_order_total}} сум</td>
+                    <td>{{other_summa_order_total}} сум</td>
+                    <td>{{karantin_summa_order_total}} сум</td>
+                    <td>{{total_order_summa}} сум</td>
+                </tr>
+                <tr>
+                    <th>Возвраты остатков {{item}}</th>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                    <td>---</td>
+                </tr>
+                <tr>
+                    <th>Остаток на {{item}}</th>
+                    <td>{{corp_ost}} сум</td>
+                    <td>{{kitchen_ost}} сум</td>
+                    <td>{{hoz_ost}} сум</td>
+                    <td>{{other_ost}} сум</td>
+                    <td>{{karantin_ost}} сум</td>
+                    <td>{{total_ost}} сум</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12" id="table_order" style="display:none;">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function main_table(id, name){
+	if(name == 'Корп расходы'){
+		console.log(name);
+	}
+	date = $('#select_month').val();
+	$.post("/account/order-category/"+id, {date:date, "csrfmiddlewaretoken" : "{{csrf_token}}"})
+	  .done(function(data) {
+	  	$('#main_table').hide();
+	    $('#table_order').html(data).show();
+	});
+}
+function show_table(){
+	$('#main_table').show();
+	$('#table_order').hide();
+}
+</script>
+{% endblock %}

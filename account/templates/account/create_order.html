@@ -1,0 +1,46 @@
+{% extends 'account/base.html' %}
+
+{% block 'content' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4 mt-5">
+            <h4>Создать расход</h4>
+            <form action="{% url 'account.create-order' %}" style="margin-top: 15px;" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="">Укажите категорию</label>
+                    <select name="category" id="" class="form-control">
+                        <option value="0">---</option>
+                        {% for item in account_categories %}
+                        <option value="{{item.id}}">{{item.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form=group">
+                    <label for="">Укажите подкатегорию</label>
+                    <select name="podcategory" id="" class="form-control">
+                        <option value="0">---</option>
+                        {% for item in account_podcategories %}
+                        <option value="{{item.id}}">{{item.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Укажите сумму</label>
+                    <input type="number" class="form-control" name="summa">
+                </div>
+                <div class="form-group">
+                    <label for="">Напишите описание</label>
+                    <input type="text" class="form-control" name="description">
+                </div>
+                <div>
+                    <label for="">Дата расходы</label>
+                    <input type="date" class="form-control" name="date" min="{{date}}" max="{{date}}">
+                </div>
+                <button type="submit" class="btn-use" style="margin-top: 10px;">Расход</button>
+                <input type=button value="Назад" onClick="javascript:history.go(-1);" class="btn-use" style="margin-top: 10px;">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}

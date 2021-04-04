@@ -1,0 +1,38 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Приход за ---</th>
+        <th>Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></td>
+        <td>25000</td>
+    </tr>
+    </tbody>
+</table>
+<h4>Расходы</h4>
+<table class="table1">
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>Наименование расхода</th>
+        <th>Сумма</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in account_orders%}
+    <tr>
+        <td>{{item.date}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.summa}} сум</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <th>Итого расход</th>
+        <td>{{total_order_summa}} сум</td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
