@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{% static 'account/css/main.css'%}">
 </head>
 <body id="account_block">
-
+	{% if request.user.is_authenticated %}
+		{% include 'account/navbar.html' %}
+	{% endif %}
 {% block 'content' %}
 {% endblock%}
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
