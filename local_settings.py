@@ -16,6 +16,11 @@ ALLOWED_HOSTS = ['*']
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/Pycharmprojects/crm_legalact/static/',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
