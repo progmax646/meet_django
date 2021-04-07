@@ -1,6 +1,6 @@
 				{% for meet in meets %}
 					<tr id="tr_meet{{meet.id}}">
-						<td>1</td>
+						<td></td>
 						<td>{{meet.client_name}}</td>
 						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 						<td>{{meet.description}}</td>
