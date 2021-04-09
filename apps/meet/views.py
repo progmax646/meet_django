@@ -37,7 +37,7 @@ def login_meet(request):
 def index(request):
     today = date.today()
     meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0)
-    meets = Task_meet.objects.all().exclude(date__startswith=today).order_by('-date')
+    meets = Task_meet.objects.all().exclude(date__startswith=today).order_by('date')
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
 
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
