@@ -31,7 +31,6 @@
 			<table class="table" style="z-index: 2">
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
 					<tr>
-						<th>#</th>
 						<th>Клиент</th>
 						<th>Дата</th>
 						<th>Описание</th>
@@ -42,7 +41,6 @@
 				<tbody>
 				{% for meet in meets_today %}
 					<tr id="tr_meet{{meet.id}}">
-						<td></td>
 						<td>{{meet.client_name}}</td>
 						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 						<td>{{meet.description}}</td>
@@ -119,14 +117,35 @@
 						</div>
 					</div>
 				{% endfor %}
-				{% if meets %}
-				{% include "meet/all_meets.html" %}
-				{% endif %}
 				</tbody>
+				{% if meets %}
+			{% include "meet/all_meets.html" %}
+			{% endif %}
 			</table>
+<!--			завершенные -->
+			<div class="collapse" id="collapseMeet" style="margin-top: 5px; margin-bottom: 10px;">
+  				<div class="card card-body" style="background: #EEEEEE;">
+	  			{% for meet in meets %}
+	  				{% if meet.status == 1%}
+	  				<div style="display:inline-flex;border-bottom: 2px solid red;margin-top: 10px;">
+		  			<p style="width: 200px; margin-right: 30px;">{{meet.client_name}}</p><p style="width: 320px;margin-right: 30px;">{{meet.description}}</p><p style="margin-right: 30px;">{{meet.date}}</p>
+		  			<p>
+			  		{% if meet.status == 0%}
+						<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+				{% elif meet.status == 1%}
+				<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+				{% else %}
+				<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+			  {% endif %}
+		  </p>
+	  </div>
+	  {% endif %}
+	  {% endfor %}
+  </div>
+</div>
 		</div>
 		<hr>
-		<div class="col-md-3 col-10 last-block-meet" style="display: block;margin: 0 auto;margin-top: 114px; height: auto;">
+		<div class="col-md-3 col-10 last-block-meet" style="display: block;margin: 0 auto;margin-top: 114px; height: 750px;">
 			<h4 style="padding-top: 25px;">Последнее добавление</h4>
 			<table class="table" id="last-meet">
 				<tbody>

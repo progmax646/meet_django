@@ -1,84 +1,95 @@
-				{% for meet in meets %}
-					<tr id="tr_meet{{meet.id}}">
-						<td></td>
-						<td>{{meet.client_name}}</td>
-						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
-						<td>{{meet.description}}</td>
-						<td>
-							{% if meet.status == 0%}
-							<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
-							{% elif meet.status == 1%}
-							<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
-							{% else %}
-							<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
-							{% endif %}
-						</td>
-						<td>
-							<div class="icon-block-meet">
-								<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-pencil-square-o"></i></button>
-								<form action="{% url 'meet_delete' %}" method="POST">
-									{% csrf_token %}
-									<input type="hidden" value="{{meet.id}}" name="meet_id">
-									<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-								</form>
-								<form action="/meet/success" method="POST">
-									{% csrf_token %}
-									<input type="hidden" value="{{meet.id}}" name="meet_id">
-									<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-								</form>
-							</div>
-						</td>
-					</tr>
+
+{% for meet in meets %}
+{% if meet.status != 1 %}
+	<tr id="tr_meet{{meet.id}}">
+	<td>{{meet.client_name}}</td>
+	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+	<td>{{meet.description}}</td>
+	<td>
+		{% if meet.status == 0%}
+		<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+		{% elif meet.status == 1%}
+		<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+		{% else %}
+		<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+		{% endif %}
+	</td>
+	<td>
+		<div class="icon-block-meet">
+			<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-pencil-square-o"></i></button>
+			<form action="{% url 'meet_delete' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" value="{{meet.id}}" name="meet_id">
+				<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+			</form>
+			<form action="/meet/success" method="POST">
+				{% csrf_token %}
+				<input type="hidden" value="{{meet.id}}" name="meet_id">
+				<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+			</form>
+		</div>
+	</td>
+</tr>
+{% endif %}
+{% endfor %}
+<tr>
+	<td>
+		<a class="btn-use" data-toggle="collapse" href="#collapseMeet" role="button" aria-expanded="false" aria-controls="collapseMeet" style="width: 150px;">
+    Завершено
+		</a>
+	</td>
+</tr>
+{% for meet in meets %}
 <!--				mobile table -->
-					<div id="mobile-table" class="col-10 col-md-9" >
-						<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
-							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
-							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
-							<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
-							<li>Статус:  <span style="margin-left: 84px;">
-								{% if meet.status == 0%}
-								<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
-								{% elif meet.status == 1%}
-								<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
-								{% else %}
-								<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
-								{% endif %}
-							</span></li>
-							<li>Сервис:  <span>
-								<div class="icon-block-meet" style="margin-left: 68px;">
-								<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button>
+<div id="mobile-table" class="col-10 col-md-9" >
+	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
+		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
+		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+		<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
+		<li>Статус:  <span style="margin-left: 84px;">
+			{% if meet.status == 0%}
+			<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+			{% elif meet.status == 1%}
+			<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+			{% else %}
+			<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+			{% endif %}
+		</span></li>
+		<li>Сервис:  <span>
+			<div class="icon-block-meet" style="margin-left: 68px;">
+				<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button>
 
-								<form action="{% url 'meet_delete' %}" method="POST">
-									{% csrf_token %}
-									<input type="hidden" value="{{meet.id}}" name="id">
-									<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-								</form>
-								<form action="/meet/success" method="POST">
-									{% csrf_token %}
-									<input type="hidden" value="{{meet.id}}" name="meet_id">
-									<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-								</form>
-							</span></li>
+				<form action="{% url 'meet_delete' %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{meet.id}}" name="id">
+					<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				</form>
+				<form action="/meet/success" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{meet.id}}" name="meet_id">
+					<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+				</form>
+		</span></li>
 
-						</ol>
-					</div>
-						<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование даты {{meet.client_name}}</h5>
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							         <span aria-hidden="true">&times;</span>
-							        </button>
-							      </div>
-							    <div class="modal-body">
-								  <form action="{% url 'meet_edit' %}" method="POST">
-								  <input type="datetime-local" value="{{meet.date}}" name="meet_date" id="meet_edit_date{{meet.id}}">
-								  <input type="hidden" name="meet_id" value="{{meet.id}}">
-								  <button type="button" class="btn-use" onclick="edit_status({{meet.id}})">Сохранить</button>
-								  </form>
-								</div>
-							</div>
-						</div>
-					</div>
-				{% endfor %}
+	</ol>
+</div>
+<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Редактирование даты {{meet.client_name}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{% url 'meet_edit' %}" method="POST">
+					<input type="datetime-local" value="{{meet.date}}" name="meet_date" id="meet_edit_date{{meet.id}}">
+					<input type="hidden" name="meet_id" value="{{meet.id}}">
+					<button type="button" class="btn-use" onclick="edit_status({{meet.id}})">Сохранить</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
