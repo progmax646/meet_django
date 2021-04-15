@@ -40,6 +40,7 @@
 	</td>
 </tr>
 {% for meet in meets %}
+{% if meet.status != 1 %}
 <!--				mobile table -->
 <div id="mobile-table" class="col-10 col-md-9" >
 	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
@@ -92,4 +93,8 @@
 		</div>
 	</div>
 </div>
+{% endif %}
 {% endfor %}
+		<a class="btn-use" data-toggle="collapse" href="#collapseMeet" id="mobile_btn" role="button" aria-expanded="false" aria-controls="collapseMeet" style="width: 150px;">
+    	Завершено
+		</a>

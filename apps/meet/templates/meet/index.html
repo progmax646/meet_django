@@ -132,15 +132,15 @@
 		  			<p>
 			  		{% if meet.status == 0%}
 						<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
-				{% elif meet.status == 1%}
-				<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
-				{% else %}
-				<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
-			  {% endif %}
-		  </p>
-	  </div>
-	  {% endif %}
-	  {% endfor %}
+						{% elif meet.status == 1%}
+						<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+						{% else %}
+						<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+					{% endif %}
+		  			</p>
+	  		</div>
+	  				{% endif %}
+	  			{% endfor %}
   </div>
 </div>
 		</div>
