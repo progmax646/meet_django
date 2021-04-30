@@ -1,6 +1,6 @@
 
 {% for meet in meets %}
-{% if meet.status != 1 %}
+{% if meet.status != 1 and meet.status != 2%}
 	<tr id="tr_meet{{meet.id}}">
 	<td>{{meet.client_name}}</td>
 	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
@@ -33,7 +33,7 @@
 {% endif %}
 {% endfor %}
 <tr>
-	<td>
+	<td style="padding: 15px 0 0 0;">
 		<a class="btn-use" data-toggle="collapse" href="#collapseMeet" role="button" aria-expanded="false" aria-controls="collapseMeet" style="width: 150px;">
     Завершено
 		</a>

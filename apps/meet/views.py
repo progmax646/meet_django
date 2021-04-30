@@ -86,7 +86,8 @@ def delete(request):
     meet = Task_meet.objects.get(pk=meet_id)
     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
     try:
-        meet.delete()
+        meet.status = 2
+        meet.save()
         params = {
             'chat_id': 1376059804,
             'text': f'Клиент {meet.client_name} удален с базы встреч'
