@@ -18,8 +18,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    '/Pycharmprojects/crm_legalact/static/',
+    '/python-projects/meet_django/static/',
 ]
+
+API_TELEGRAM = '624760197:AAFOx7I3xaB6wbwedsmEZqAd8BfgPYqSOu4s_3Q'
 
 DATABASES = {
     'default': {
@@ -29,7 +31,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': '2151796qw',
+        'PASSWORD': '2151',
 
         'HOST': 'localhost',
 

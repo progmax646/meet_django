@@ -43,6 +43,7 @@
 {% if meet.status != 1 %}
 <!--				mobile table -->
 <div id="mobile-table" class="col-10 col-md-9" >
+	{% if meet.status != 2 %}
 	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
@@ -73,6 +74,7 @@
 		</span></li>
 
 	</ol>
+	{% endif %}
 </div>
 <div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 	<div class="modal-dialog" role="document">

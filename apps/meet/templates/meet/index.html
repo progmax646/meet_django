@@ -71,6 +71,7 @@
 					</tr>
 <!--				mobile table -->
 					<div id="mobile-table" class="col-10 col-md-9">
+						{% if meet.status != 2%}
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
@@ -96,6 +97,7 @@
 									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
 							</span></li>
 						</ol>
+						{% endif %}
 					</div>
 						<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 							<div class="modal-dialog" role="document">
@@ -125,12 +127,11 @@
 <!--			завершенные -->
 			<div class="collapse" id="collapseMeet" style="margin-top: 5px; margin-bottom: 10px;">
   				<div class="card card-body" style="background: #EEEEEE;">
-					<table class="table">
+					<table>
 						{% for meet in meets %}
-							{% if meet.status != 0%}
 								<tr>
 									<td>{{meet.client_name}}</td>
-									<td>{{meet.date}}</td>
+									<td>{{meet.date|date:"Y-m-d H:00"}}</td>
 									<td>
 										{% if meet.status == 0%}
 										<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
@@ -141,7 +142,6 @@
 										{% endif %}
 									</td>
 								</tr>
-							{% endif %}
 						{% endfor %}
 					</table>
   				</div>
