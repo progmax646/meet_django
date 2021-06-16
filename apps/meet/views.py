@@ -174,5 +174,5 @@ def searchNotification(request=None):
                     HttpResponse(e)
             else:
                 print('false')
-    time.sleep(60)
+    time.sleep(10)
     searchNotification()
