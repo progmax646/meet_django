@@ -163,7 +163,7 @@ def searchNotification(request=None):
                 try:
                     url = 'https://api.telegram.org/bot624760197:AAFOx7I3xaB6wbmEZqAd8BfgPYqSOu4s_3Q/sendMessage'
                     params = {
-                        'chat_id': '272339311',
+                        'chat_id': '-1001296908744',
                         'text': f'❗️Встреча «{meet.client_name}» запланирована на {meet.date}'
                     }
 
