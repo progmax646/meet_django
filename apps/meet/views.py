@@ -162,7 +162,7 @@ def searchNotification(request=None):
             if datetime1.hour == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
                 try:
-                    url = 'https://api.telegram.org/bot624760197:AAFOx7I3xaB6wbmEZqAd8BfgPYqSOu4s_3Q/sendMessage'
+                    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                     params = {
                         'chat_id': '272339311',
                         'text': f'❗️Встреча «{meet.client_name}» запланирована на {meet.date}'
