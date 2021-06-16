@@ -8,6 +8,7 @@ from django.views.static import serve
 urlpatterns = [
     path('', views.index, name='meet_index'),
     path('create', views.create, name='meet_create'),
+    path('get-search-notification', views.searchNotification),
     path('edit', views.edit, name='meet_edit'),
     path('delete', views.delete, name='meet_delete'),
     path('search', views.search, name='meet_search'),

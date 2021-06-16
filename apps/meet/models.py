@@ -8,6 +8,7 @@ class Task_meet(models.Model):
     description = models.TextField(blank=True)
     date = models.DateTimeField()
     status = models.IntegerField()
+    notification = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):

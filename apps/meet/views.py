@@ -1,7 +1,8 @@
+import time
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Task_meet
 from django.db.models.functions import Length
-from datetime import date
+from datetime import date, timedelta
 import requests
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,10 @@ import urllib
 import requests
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime, timedelta
+from dateutil.parser import parse
+
+
 try:
     from local_settings import API_TELEGRAM
 except ImportError:
@@ -41,17 +46,28 @@ def index(request):
 
     return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
                                                'today':today})
+
+
+
 @login_required(login_url='/meet/login')
 def create(request):
 
     if request.method == 'POST':
         client_name = request.POST['client-name']
         description = request.POST['description']
-        datetime = request.POST['date-meet']
+        datetime2 = parse(request.POST['date-meet'])
+        if 'is_private' in request.POST:
+            is_private = True
+            task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+                             status=0, notification=datetime2 - timedelta(hours=1))
 
-        task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime, status=0)
+        else:
+            is_private = False
+            task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+                             status=0)
 
         try:
+            print(task.notification)
             task.save()
             return redirect('/meet')
         except Exception as e:
@@ -129,3 +145,33 @@ def success_status(request):
 def logout_meet(request):
     logout(request)
     return redirect('/meet/login')
+
+
+
+# функция проверки встреч
+
+def searchNotification(request=None):
+    print('turn on')
+    today = date.today()
+    today_hour = datetime.now().hour
+    today_minute = datetime.now().minute
+    meets = Task_meet.objects.filter(status=0, date__startswith=today)
+    for meet in meets:
+        if meet.notification != None:
+            datetime1 = parse(str(meet.notification))
+            if datetime1.hour == today_hour and datetime1.minute == today_minute:
+                try:
+                    url = 'https://api.telegram.org/bot624760197:AAFOx7I3xaB6wbmEZqAd8BfgPYqSOu4s_3Q/sendMessage'
+                    params = {
+                        'chat_id': '272339311',
+                        'text': f'❗️Встреча «{meet.client_name}» запланирована на {meet.date}'
+                    }
+
+                    r = requests.get(url=url, params=params)
+                    print('true')
+                except Exception as e:
+                    HttpResponse(e)
+            else:
+                print('false')
+    time.sleep(60)
+    searchNotification()

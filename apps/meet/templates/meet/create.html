@@ -1,7 +1,7 @@
 {% extends 'meet/base.html' %}
 {% block 'content'%}
 		<div class="row">
-			<div class="col-md-6 col-10" id="create-page" style="display: block;margin: 0 auto;">
+			<div class="col-md-4 offset-md-5" id="create-page">
 				<h4>Создать встречу</h4>
 				<form action="{% url 'meet_create' %}" method="POST">
                     {% csrf_token %}
@@ -16,6 +16,10 @@
 					<div class="form-group">
 						<label for="date-meet">Дата и время</label><br>
 						<input type="datetime-local" name="date-meet" id="date-meet">
+					</div>
+					<div class="form-group" style="display:inline-flex;">
+						<span style="display:block; width: 160px;">Напомнить за час</span>
+						<input type="checkbox"  name="is_private" style="display: block;width: 50px;position: relative;top: 6px;right: 18px;" checked>
 					</div>
 					<div id="create-btn-group">
 						<button type="submit" class="btn-use">Создать</button>
