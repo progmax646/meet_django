@@ -150,8 +150,8 @@ def logout_meet(request):
 
 # функция проверки встреч
 
-def searchNotification(request=None):
-    print('turn on')
+def searchNotification(request):
+    status = 'Не было напоминаний'
     today = date.today()
     today_hour = datetime.now().hour
     today_minute = datetime.now().minute
@@ -169,8 +169,9 @@ def searchNotification(request=None):
                     }
 
                     r = requests.get(url=url, params=params)
-                    return HttpResponse('True')
+                    status = 'True'
                 except Exception as e:
-                    HttpResponse(e)
+                    status = e
             else:
-                print('false')
+                status = 'False'
+    return render(request, 'meet/test.html', {'status':status})
