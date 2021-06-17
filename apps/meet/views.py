@@ -162,7 +162,7 @@ def searchNotification(request):
     for meet in meets:
         if meet.notification:
             datetime1 = parse(str(meet.notification))
-            if datetime1.hour == today_hour and datetime1.minute == today_minute:
+            if datetime1.hour+5 == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
                 try:
                     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
