@@ -153,6 +153,7 @@ def logout_meet(request):
 def searchNotification(request):
     status = 'Не было напоминаний'
     today = date.today()
+    now = datetime.now()
     today_hour = datetime.now().hour
     today_minute = datetime.now().minute
     meets = Task_meet.objects.filter(status=0, date__startswith=today)
@@ -174,4 +175,4 @@ def searchNotification(request):
                     status = e
             else:
                 status = 'False'
-    return render(request, 'meet/test.html', {'status':status})
+    return render(request, 'meet/test.html', {'status':status, 'date':now})
