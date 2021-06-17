@@ -160,7 +160,7 @@ def searchNotification(request):
     today_minute = datetime.now().minute
     meets = Task_meet.objects.filter(status=0, date__startswith=today)
     for meet in meets:
-        if meet.notification != None:
+        if meet.notification:
             datetime1 = parse(str(meet.notification))
             if datetime1.hour == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
