@@ -177,4 +177,4 @@ def searchNotification(request):
                     status = e
             else:
                 status = 'False'
-    return render(request, 'meet/test.html', {'status':status, 'date':now})
+    return render(request, 'meet/test.html', {'status':status, 'date':now, 'meets':meets})

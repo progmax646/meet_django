@@ -7,5 +7,26 @@
 <body>
 <p>{{status}}</p>
 <p>{{date}}</p>
+<h3>Table for my testing </h3>
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Date</td>
+        <td>Notification</td>
+        <td>Status</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for meet in meets %}
+    <tr>
+        <td>{{meet.description}}</td>
+        <td>{{meet.date}}</td>
+        <td>{{meet.notification}}</td>
+        <td>{{meet.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>
