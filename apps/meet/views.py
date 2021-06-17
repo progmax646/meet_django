@@ -15,7 +15,8 @@ from datetime import datetime, timedelta
 from dateutil.parser import parse
 from django.utils import timezone
 import pytz
-
+import asyncio
+from asgiref.sync import sync_to_async
 
 try:
     from local_settings import API_TELEGRAM
@@ -38,7 +39,6 @@ def login_meet(request):
     return render(request, 'meet/login.html')
 
 
-
 @login_required(login_url='/meet/login')
 def index(request):
     today = date.today()
@@ -46,14 +46,13 @@ def index(request):
     meets = Task_meet.objects.all().exclude(date__startswith=today).order_by('date')
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
 
-    return render(request, 'meet/index.html', {'meets_today':meets_today, 'meets':meets, 'last_meet':meets_last_update,
-                                               'today':today})
-
+    return render(request, 'meet/index.html',
+                  {'meets_today': meets_today, 'meets': meets, 'last_meet': meets_last_update,
+                   'today': today})
 
 
 @login_required(login_url='/meet/login')
 def create(request):
-
     if request.method == 'POST':
         client_name = request.POST['client-name']
         description = request.POST['description']
@@ -74,7 +73,6 @@ def create(request):
             return redirect('/meet')
         except Exception as e:
             return HttpResponse(e)
-
 
     return render(request, 'meet/create.html')
 
@@ -97,6 +95,7 @@ def edit(request):
         r = requests.get(url=url, params=params)
 
         return redirect('/meet')
+
 
 @csrf_exempt
 def delete(request):
@@ -121,7 +120,7 @@ def search(request):
     if request.method == 'POST':
         date = request.POST['date-meet']
         meets = Task_meet.objects.filter(date__startswith=date)
-        return render(request, 'meet/search.html', {'meets':meets})
+        return render(request, 'meet/search.html', {'meets': meets})
 
 
 def success_status(request):
@@ -132,8 +131,8 @@ def success_status(request):
         try:
             url = 'https://api.telegram.org/bot624760197:AAFUMPSsd3cL59Zvsg00JASKvEuCLUy2yfM/sendMessage'
             params = {
-                'chat_id':'1376059804',
-                'text':f'Встреча «{meet.client_name}» завершена'
+                'chat_id': '1376059804',
+                'text': f'Встреча «{meet.client_name}» завершена'
             }
 
             r = requests.get(url=url, params=params)
@@ -152,6 +151,7 @@ def logout_meet(request):
 
 # функция проверки встреч
 
+
 def searchNotification(request=None):
     status = 'Не было напоминаний'
     today = date.today()
@@ -162,13 +162,13 @@ def searchNotification(request=None):
     for meet in meets:
         if meet.notification:
             datetime1 = parse(str(meet.notification))
-            if datetime1.hour+5 == today_hour and datetime1.minute == today_minute:
+            if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
                 try:
                     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                     params = {
                         'chat_id': '272339311',
-                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime1.hour+6}:{datetime1.minute}'
+                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime1.hour + 6}:{datetime1.minute}'
                     }
 
                     r = requests.get(url=url, params=params)
