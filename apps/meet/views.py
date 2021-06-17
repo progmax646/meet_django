@@ -169,7 +169,7 @@ def searchNotification(request=None):
                     }
 
                     r = requests.get(url=url, params=params)
-                    print('true')
+                    return HttpResponse('True')
                 except Exception as e:
                     HttpResponse(e)
             else:
