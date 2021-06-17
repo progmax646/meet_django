@@ -38,6 +38,33 @@ def login_meet(request):
 
     return render(request, 'meet/login.html')
 
+def searchNotification(request=None):
+    status = 'Не было напоминаний'
+    today = date.today()
+    now = datetime.now()
+    today_hour = datetime.now().hour
+    today_minute = datetime.now().minute
+    meets = Task_meet.objects.filter(status=0, date__startswith=today)
+    for meet in meets:
+        if meet.notification:
+            datetime1 = parse(str(meet.notification))
+            if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
+                # -1001296908744
+                try:
+                    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
+                    params = {
+                        'chat_id': '272339311',
+                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime1.hour + 6}:{datetime1.minute}'
+                    }
+
+                    r = requests.get(url=url, params=params)
+                    status = 'True'
+                except Exception as e:
+                    status = e
+            else:
+                status = 'False'
+    return HttpResponse('True')
+
 
 @login_required(login_url='/meet/login')
 def index(request):
@@ -151,32 +178,3 @@ def logout_meet(request):
 
 # функция проверки встреч
 
-
-def searchNotification(request=None):
-    status = 'Не было напоминаний'
-    today = date.today()
-    now = datetime.now()
-    today_hour = datetime.now().hour
-    today_minute = datetime.now().minute
-    meets = Task_meet.objects.filter(status=0, date__startswith=today)
-    for meet in meets:
-        if meet.notification:
-            datetime1 = parse(str(meet.notification))
-            if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
-                # -1001296908744
-                try:
-                    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
-                    params = {
-                        'chat_id': '272339311',
-                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime1.hour + 6}:{datetime1.minute}'
-                    }
-
-                    r = requests.get(url=url, params=params)
-                    status = 'True'
-                except Exception as e:
-                    status = e
-            else:
-                status = 'False'
-    return HttpResponse('True')
-    time.sleep(30)
-    searchNotification()
