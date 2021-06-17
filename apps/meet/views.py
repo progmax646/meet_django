@@ -152,7 +152,7 @@ def logout_meet(request):
 
 # функция проверки встреч
 
-def searchNotification(request):
+def searchNotification(request=None):
     status = 'Не было напоминаний'
     today = date.today()
     now = datetime.now()
@@ -177,4 +177,5 @@ def searchNotification(request):
                     status = e
             else:
                 status = 'False'
-    return render(request, 'meet/test.html', {'status':status, 'date':now, 'meets':meets})
+    time.sleep(15)
+    searchNotification()
