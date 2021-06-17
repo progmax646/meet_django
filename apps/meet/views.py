@@ -177,5 +177,5 @@ def searchNotification(request=None):
                     status = e
             else:
                 status = 'False'
-    time.sleep(15)
+    time.sleep(30)
     searchNotification()
