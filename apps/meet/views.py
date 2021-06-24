@@ -48,13 +48,16 @@ def searchNotification(request=None):
     for meet in meets:
         if meet.notification:
             datetime1 = parse(str(meet.notification))
+            datetime2 = parse(str(meet.date))
             if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
+                # 7339360
+
                 try:
                     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                     params = {
                         'chat_id': '7339360',
-                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime1.hour + 6}:{datetime1.minute}'
+                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime2.hour+5}:{str(datetime.now())[14:16]}'
                     }
 
                     r = requests.get(url=url, params=params)
@@ -63,7 +66,7 @@ def searchNotification(request=None):
                     status = e
             else:
                 status = 'False'
-    return HttpResponse('True')
+    return HttpResponse(status)
 
 
 @login_required(login_url='/meet/login')
