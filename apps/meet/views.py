@@ -72,7 +72,7 @@ def searchNotification(request=None):
 @login_required(login_url='/meet/login')
 def index(request):
     today = date.today()
-    meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0)
+    meets_today = Task_meet.objects.filter(date__startswith=today).filter(status=0).order_by('date')
     meets = Task_meet.objects.all().exclude(date__startswith=today).order_by('date')
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
 
