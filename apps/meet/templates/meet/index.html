@@ -40,6 +40,7 @@
 				</thead>
 				<tbody>
 				{% for meet in meets_today %}
+					{% if meet.type == 1%}
 					<tr id="tr_meet{{meet.id}}">
 						<td>{{meet.client_name}}</td>
 						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
@@ -69,7 +70,22 @@
 							</div>
 						</td>
 					</tr>
+					{% else %}
+					<tr style="background-color: #28A745;
+					height: 170px;
+					color: white;
+					text-align: center;
+					opacity: .6;">
+						<td colspan="5">
+							<span style="font-size: 25px;
+							padding-top: 15px;
+							display: block;"> Время забронировано</span> <br>
+							<span>{{meet.date}} - {{meet.date_do}}</span>
+						</td>
+					</tr>
+					{% endif %}
 <!--				mobile table -->
+					{% if meet.type == 1%}
 					<div id="mobile-table" class="col-10 col-md-9">
 						{% if meet.status != 2%}
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
@@ -118,6 +134,12 @@
 							</div>
 						</div>
 					</div>
+					{% else %}
+					<div id="mobile-table" class="col-10 col-md-9 mob-type">
+						<h4>Время забронировано</h4>
+						<span>{{meet.date}} - {{meet.date_do}}</span>
+					</div>
+					{% endif %}
 				{% endfor %}
 				</tbody>
 				{% if meets %}

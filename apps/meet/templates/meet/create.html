@@ -6,20 +6,39 @@
 				<form action="{% url 'meet_create' %}" method="POST">
                     {% csrf_token %}
 					<div class="form-group">
-						<label for="client-name">Наименование клиента</label><br>
-						<input type="text" name="client-name" id="client-name">
+						<label for="">Выберите тип</label>
+						<select name="type" id="" onchange="getForm(this)">
+							<option value="1">Встреча</option>
+							<option value="2">Забронировать время</option>
+						</select>
 					</div>
-					<div class="form-group">
-						<label for="text">Описание встречи</label><br>
-						<textarea cols="27" rows="5" name="description"></textarea>
+					<div id="hidden_form1">
+						<div class="form-group">
+							<label for="client-name">Наименование клиента</label><br>
+							<input type="text" name="client-name" id="client-name">
+						</div>
+						<div class="form-group">
+							<label for="text">Описание встречи</label><br>
+							<textarea cols="27" rows="5" name="description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="date-meet">Дата и время</label><br>
+							<input type="datetime-local" name="date-meet" id="date-meet">
+						</div>
+						<div class="form-group" style="display:inline-flex;">
+							<span style="display:block; width: 160px;">Напомнить за час</span>
+							<input type="checkbox"  name="is_private" style="display: block;width: 50px;position: relative;top: 6px;right: 18px;" checked>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="date-meet">Дата и время</label><br>
-						<input type="datetime-local" name="date-meet" id="date-meet">
-					</div>
-					<div class="form-group" style="display:inline-flex;">
-						<span style="display:block; width: 160px;">Напомнить за час</span>
-						<input type="checkbox"  name="is_private" style="display: block;width: 50px;position: relative;top: 6px;right: 18px;" checked>
+					<div id="hidden_form2" style="display: none;">
+						<div class="form-group">
+							<label for="">Выберите дату и время начала</label>
+							<input type="datetime-local" name="date_ot">
+						</div>
+						<div class="form-group">
+							<label for="">Выберите дату и время окончания</label>
+							<input type="datetime-local" name="date_do">
+						</div>
 					</div>
 					<div id="create-btn-group">
 						<button type="submit" class="btn-use">Создать</button>
@@ -39,4 +58,26 @@
 <!--				 </div>-->
 <!--			</div>-->
 		</div>
+		<script>
+			function getForm(event){
+				if(event.value == 1)
+				{
+					document.getElementById('hidden_form1').style.display = 'inline-block';
+					document.getElementById('hidden_form2').style.display = 'none';
+				}
+
+				if(event.value == 2)
+				{
+					document.getElementById('hidden_form2').style.display = 'inline-block';
+					document.getElementById('hidden_form1').style.display = 'none';
+				}
+				console.log(event.value);
+			}
+		</script>
+		<style>
+			:active, :hover, :focus {
+				outline: 0;
+				outline-offset: 0;
+			}
+		</style>
 {% endblock %}

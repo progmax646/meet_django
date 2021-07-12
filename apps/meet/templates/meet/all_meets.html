@@ -1,7 +1,7 @@
 
 {% for meet in meets %}
-{% if meet.status != 1 and meet.status != 2%}
-	<tr id="tr_meet{{meet.id}}">
+{% if meet.status != 1 and meet.status != 2 and meet.type == 1%}
+<tr id="tr_meet{{meet.id}}">
 	<td>{{meet.client_name}}</td>
 	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 	<td>{{meet.description}}</td>
@@ -31,6 +31,20 @@
 	</td>
 </tr>
 {% endif %}
+{% if meet.status != 1 and meet.status != 2 and meet.type == 2 %}
+<tr style="background-color: #28A745;
+	height: 170px;
+	color: white;
+	text-align: center;
+	opacity: .6;">
+		<td colspan="5">
+			<span style="font-size: 25px;
+			padding-top: 15px;
+			display: block;"> Время забронировано</span> <br>
+			<span>{{meet.date}} - {{meet.date_do}}</span>
+		</td>
+	</tr>
+{% endif %}
 {% endfor %}
 <tr>
 	<td style="padding: 15px 0 0 0;">
@@ -43,7 +57,7 @@
 {% if meet.status != 1 %}
 <!--				mobile table -->
 <div id="mobile-table" class="col-10 col-md-9" >
-	{% if meet.status != 2 %}
+	{% if meet.status != 2 and meet.type == 1 %}
 	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
@@ -76,6 +90,12 @@
 	</ol>
 	{% endif %}
 </div>
+{% if meet.status != 2 and meet.type == 2  %}
+<div id="mobile-table" class="col-10 col-md-9 mob-type">
+	<h4>Время забронировано</h4>
+	<span>{{meet.date}} - {{meet.date_do}}</span>
+</div>
+{% endif %}
 <div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

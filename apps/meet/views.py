@@ -84,25 +84,40 @@ def index(request):
 @login_required(login_url='/meet/login')
 def create(request):
     if request.method == 'POST':
-        client_name = request.POST['client-name']
-        description = request.POST['description']
-        datetime2 = parse(request.POST['date-meet'])
-        if 'is_private' in request.POST:
-            is_private = True
-            task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
-                             status=0, notification=datetime2 - timedelta(hours=1))
+        type = request.POST['type']
+        print(type)
+        if int(type) == 2:
+            date_ot = request.POST['date_ot']
+            date_do = request.POST['date_do']
 
-        else:
-            is_private = False
-            task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+            task = Task_meet(user=request.user, type=type, date=date_ot, date_do=date_do,
                              status=0)
+            try:
+                print(task)
+                task.save()
+                return redirect('/meet')
+            except Exception as e:
+                return HttpResponse(e)
+        if int(type) == 1:
+            client_name = request.POST['client-name']
+            description = request.POST['description']
+            datetime2 = parse(request.POST['date-meet'])
+            if 'is_private' in request.POST:
+                is_private = True
+                task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+                                 status=0, notification=datetime2 - timedelta(hours=1))
 
-        try:
-            print(task.notification)
-            task.save()
-            return redirect('/meet')
-        except Exception as e:
-            return HttpResponse(e)
+            else:
+                is_private = False
+                task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+                                 status=0)
+
+            try:
+                print(task.notification)
+                task.save()
+                return redirect('/meet')
+            except Exception as e:
+                return HttpResponse(e)
 
     return render(request, 'meet/create.html')
 

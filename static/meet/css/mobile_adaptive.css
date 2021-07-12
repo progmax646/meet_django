@@ -73,3 +73,18 @@
 		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	}
 }
+
+.mob-type {
+    background-color: #28A745;
+    opacity: .7;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    height: 180px;
+}
+
+.mob-type h4 {
+    margin-top: 25px;
+}
