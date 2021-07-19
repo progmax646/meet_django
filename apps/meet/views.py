@@ -144,19 +144,26 @@ def edit(request):
 
 @csrf_exempt
 def delete(request):
-    meet_id = request.POST['id']
-    meet = Task_meet.objects.get(pk=meet_id)
-    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
-    try:
+    if request.method == 'POST':
+        meet_id = request.POST['id']
+        meet = Task_meet.objects.get(pk=meet_id)
+        url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
+        try:
+            meet.status = 2
+            meet.save()
+            params = {
+                'chat_id': 1376059804,
+                'text': f'Клиент {meet.client_name} удален с базы встреч'
+            }
+            r = requests.get(url=url, params=params)
+        except Exception as e:
+            return HttpResponse(e)
+    else:
+        meet_id = request.GET['id']
+        meet = Task_meet.objects.get(pk=meet_id)
         meet.status = 2
         meet.save()
-        params = {
-            'chat_id': 1376059804,
-            'text': f'Клиент {meet.client_name} удален с базы встреч'
-        }
-        r = requests.get(url=url, params=params)
-    except Exception as e:
-        return HttpResponse(e)
+
 
     return redirect('/meet')
 
@@ -168,6 +175,7 @@ def search(request):
         return render(request, 'meet/search.html', {'meets': meets})
 
 
+@csrf_exempt
 def success_status(request):
     if request.method == 'POST':
         meet_id = request.POST['meet_id']
@@ -186,13 +194,37 @@ def success_status(request):
             return redirect('/meet')
         except Exception as e:
             HttpResponse(e)
+    else:
+        meet_id = request.GET['meet_id']
+        meet = Task_meet.objects.get(pk=meet_id)
+        meet.status = 1
+        meet.save()
+        return redirect('/meet')
 
 
 def logout_meet(request):
     logout(request)
     return redirect('/meet/login')
 
+# функция для редактирования бронирования 
 
+
+def get_reserve_page(request, id):
+    meet = Task_meet.objects.get(pk=id)
+    return render(request, 'meet/edit.html', {'meet':meet})
+
+
+def edit_reserve(request):
+    if request.method == 'POST':
+        meet_id = request.POST['meet_id']
+        date_ot = request.POST['date_ot']
+        date_do = request.POST['date_do']
+
+        meet = Task_meet.objects.get(pk=meet_id)
+        meet.date = date_ot
+        meet.date_do = date_do
+        meet.save()
+        return redirect('/meet')
 
 # функция проверки встреч
 

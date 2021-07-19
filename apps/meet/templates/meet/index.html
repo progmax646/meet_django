@@ -77,10 +77,19 @@
 					text-align: center;
 					opacity: .6;">
 						<td colspan="5">
+							<div class="panel_body">
+								<span class="fa fa-ellipsis-v" onclick="getWindow({{meet.id}})"></span>
+								<div id="panel{{meet.id}}" class="setting">
+									<a href="" onclick="getSuccess({{meet.id}})">Завершить</a>
+									<a href="/meet/edit/reserve/{{meet.id}}">Редактировать</a>
+									<a href="" onclick="getDelete({{meet.id}})">Удалить</a>
+
+								</div>
+							</div>
 							<span style="font-size: 25px;
 							padding-top: 15px;
 							display: block;"> Время забронировано</span> <br>
-							<span>{{meet.date}} - {{meet.date_do}}</span>
+							<span style="display: block;padding-bottom: 50px;">{{meet.date}} - {{meet.date_do}}</span>
 						</td>
 					</tr>
 					{% endif %}
@@ -136,12 +145,66 @@
 					</div>
 					{% else %}
 					<div id="mobile-table" class="col-10 col-md-9 mob-type">
+						<div class="panel_body">
+							<span class="fa fa-ellipsis-v" onclick="getWindow({{meet.id}})"></span>
+							<div id="panel{{meet.id}}" class="setting">
+								<a href="" onclick="getSuccess({{meet.id}})">Завершить</a>
+								<a href="/meet/edit/reserve/{{meet.id}}">Редактировать</a>
+								<a href="" onclick="getDelete({{meet.id}})">Удалить</a>
+
+							</div>
+						</div>	
 						<h4>Время забронировано</h4>
 						<span>{{meet.date}} - {{meet.date_do}}</span>
 					</div>
 					{% endif %}
 				{% endfor %}
 				</tbody>
+				<script>
+					function getWindow(id){
+						let setting_panel = document.getElementById('panel'+id);
+						try{
+							if(setting_panel.style.display != 'flex'){
+								setting_panel.style.transition = '4s';
+								setting_panel.style.display = 'flex';
+							}else {
+								setting_panel.style.transition = '4s';
+								setting_panel.style.display = 'none';
+							}
+						}catch(e){
+							console.log(e);
+						}
+					}
+
+					function getSuccess(id){
+						let send = new XMLHttpRequest();
+
+						try{
+							send.open('GET', '/meet/success?meet_id='+id, true);
+							send.onload = function(){
+								alert('Встреча завершена');
+							}
+							send.send(null);
+						}catch(e){
+							console.log(e);
+						}
+
+					}
+
+					function getDelete(id){
+						let send = new XMLHttpRequest();
+
+						try{
+							send.open('GET', '/meet/delete?id='+id, true);
+							send.onload = function(){
+								alert('Встреча удалена');
+							}
+							send.send(null);
+						}catch(e){
+							console.log(e);
+						}
+					}
+				</script>
 				{% if meets %}
 			{% include "meet/all_meets.html" %}
 			{% endif %}
@@ -184,4 +247,42 @@
 			</table>
 		</div>
 	</div>
+<style>
+	.setting {
+		display: none;
+		flex-direction: column;
+		width: 150px;
+		height: 100px;
+		background-color: white;
+		border-radius: 5px;
+		position: absolute;
+		top: 0;
+		right: 8px;
+		font-family: sans-serif;
+		opacity: .9;
+		padding-top: 15px;
+	}
+	.setting a {
+		text-align: left;
+		padding-left: 15px;
+		color: black;
+	}
+	.setting a:hover {
+		background: #EE1D23;
+		color:white;
+		text-decoration: none;
+		opacity: none;
+    }
+	.panel_body {
+		position: relative;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
+	.panel_body span {
+		font-size: 20px;
+		cursor: pointer;
+	}
+</style>
 {% endblock %}

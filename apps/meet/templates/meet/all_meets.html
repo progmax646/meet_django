@@ -38,6 +38,15 @@
 	text-align: center;
 	opacity: .6;">
 		<td colspan="5">
+			<div class="panel_body">
+				<span class="fa fa-ellipsis-v" onclick="getWindow({{meet.id}})"></span>
+				<div id="panel{{meet.id}}" class="setting">
+					<a href="" onclick="getSuccess({{meet.id}})">Завершить</a>
+					<a href="/meet/edit/reserve/{{meet.id}}">Редактировать</a>
+					<a href="" onclick="getDelete({{meet.id}})">Удалить</a>
+
+				</div>
+			</div>
 			<span style="font-size: 25px;
 			padding-top: 15px;
 			display: block;"> Время забронировано</span> <br>
@@ -92,6 +101,15 @@
 </div>
 {% if meet.status != 2 and meet.type == 2  %}
 <div id="mobile-table" class="col-10 col-md-9 mob-type">
+	<div class="panel_body">
+		<span class="fa fa-ellipsis-v" onclick="getWindow({{meet.id}})"></span>
+		<div id="panel{{meet.id}}" class="setting">
+			<a href="" onclick="getSuccess({{meet.id}})">Завершить</a>
+			<a href="/meet/edit/reserve/{{meet.id}}">Редактировать</a>
+			<a href="" onclick="getDelete({{meet.id}})">Удалить</a>
+
+		</div>
+	</div>
 	<h4>Время забронировано</h4>
 	<span>{{meet.date}} - {{meet.date_do}}</span>
 </div>

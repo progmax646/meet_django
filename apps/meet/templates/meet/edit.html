@@ -1,0 +1,53 @@
+{% extends 'meet/base.html' %}
+{% block 'content'%}
+		<div class="row">
+			<div class="col-md-4 offset-md-5" id="create-page">
+				<h4>Редактировать бронь</h4>
+				<form action="{% url 'reserve' %}" method="POST">
+                    {% csrf_token %}
+					<div class="form-group">
+						<label for="">Выберите тип</label>
+						<select name="type" id="">
+							<option value="{{meet.type}}">Забронировать время</option>
+						</select>
+					</div>
+					<div id="hidden_form2">
+						<div class="form-group">
+							<label for="">Текущая дата начала</label>
+                            <p>{{meet.date}}</p>
+							<input type="datetime-local" name="date_ot">
+						</div>
+						<div class="form-group">
+							<label for="">Текущая дата окончания</label>
+                            <p>{{meet.date_do}}</p>
+							<input type="datetime-local" name="date_do">
+						</div>
+                        <input type="hidden" name="meet_id" value="{{meet.id}}">
+					</div>
+					<div id="create-btn-group">
+						<button type="submit" class="btn-use">Сохранить</button>
+						<a href="{% url 'meet_index' %}" class="btn-use">Назад</a>
+					</div>
+				</form>
+			</div>
+<!--			<div class="col-md-2 col-10 last-block-meet" id="create-page" style="height: 100%;">-->
+<!--				 <h4 style="font-weight: bold;">last</h4>-->
+<!--				 <div>-->
+<!--				 	<ol>-->
+<!--				 		<li>01.03.2021 - OOO LegalAct</li>-->
+<!--				 		<li>01.03.2021 - Maks</li>-->
+<!--				 		<li>01.03.2021 - Maks</li>-->
+<!--				 		<li>01.03.2021 - Maks</li>-->
+<!--				 	</ol>-->
+<!--				 </div>-->
+<!--			</div>-->
+		</div>
+		<script>
+		</script>
+		<style>
+			:active, :hover, :focus {
+				outline: 0;
+				outline-offset: 0;
+			}
+		</style>
+{% endblock %}
