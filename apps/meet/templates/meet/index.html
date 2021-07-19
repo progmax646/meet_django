@@ -153,7 +153,7 @@
 								<a href="" onclick="getDelete({{meet.id}})">Удалить</a>
 
 							</div>
-						</div>	
+						</div>
 						<h4>Время забронировано</h4>
 						<span>{{meet.date}} - {{meet.date_do}}</span>
 					</div>
@@ -162,18 +162,16 @@
 				</tbody>
 				<script>
 					function getWindow(id){
-						let setting_panel = document.getElementById('panel'+id);
-						try{
-							if(setting_panel.style.display != 'flex'){
-								setting_panel.style.transition = '4s';
-								setting_panel.style.display = 'flex';
+						let setting_panel = document.querySelectorAll('#panel'+id);
+						setting_panel.forEach((panel) => { 
+							if(panel.style.display != 'flex'){
+								panel.style.transition = '4s';
+								panel.style.display = 'flex';
 							}else {
-								setting_panel.style.transition = '4s';
-								setting_panel.style.display = 'none';
+								panel.style.transition = '4s';
+								panel.style.display = 'none';
 							}
-						}catch(e){
-							console.log(e);
-						}
+						})
 					}
 
 					function getSuccess(id){
