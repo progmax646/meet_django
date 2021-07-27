@@ -26,7 +26,8 @@ INSTALLED_APPS = [
 
 #     my apps
     'meet',
-    'account'
+    'account',
+    'menus'
 ]
 
 MIDDLEWARE = [

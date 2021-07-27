@@ -38,6 +38,7 @@ def login_meet(request):
 
     return render(request, 'meet/login.html')
 
+
 def searchNotification(request=None):
     status = 'Не было напоминаний'
     today = date.today()

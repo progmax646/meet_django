@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/meet', permanent=False)),
+    path('', RedirectView.as_view(url='/menu', permanent=False)),
+    path('menu/', include('menus.urls')),
     path('admin/', admin.site.urls),
     path('meet/', include('meet.urls')),
     path('account/', include('account.urls'))
