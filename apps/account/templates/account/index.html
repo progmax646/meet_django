@@ -1,8 +1,9 @@
 {% extends 'account/base.html' %}
 
 {% block 'content' %}
-<div class="container">
-    <h4 class="text-center">Учет расходов</h4>
+<div class="main-container">
+    <div class="form-wrapper">
+        <h4 class="text-center">Учет расходов</h4>
     <form action="{% url 'account.index' %}" method="POST" id="search_block">
         {% csrf_token %}
         <select name="month" id="select_month">
@@ -25,6 +26,8 @@
     </form>
     <a href="{% url 'account.create-order'%}" class="btn-a mt-4">Расход</a>
     <a href="{% url 'account.create'%}" class="btn-a mt-4">Приход</a>
+    </div>
+    
 
 </div>
 
