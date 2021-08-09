@@ -77,7 +77,7 @@ def index(request):
 
     # всего приход
 
-    total_come_summa = sum(corp_come_summa)+sum(kitchen_come_summa)+sum(other_come_summa)+sum(karantin_come_summa)
+    total_come_summa = sum(corp_come_summa)+sum(kitchen_come_summa)+sum(other_come_summa)+sum(karantin_come_summa)+sum(hoz_come_summa)
 
     # расходы
 
