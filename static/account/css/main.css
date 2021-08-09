@@ -175,3 +175,38 @@ tr th {
   left: 0;
 }
 
+    .main-container{
+        max-width: 1140px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    .table-body{
+        margin-top: 50px;
+    }
+    
+    .table-body .nav{
+        display: flex;
+        width: 1140px;
+    }
+    .form-wrapper{
+        min-height: 200px;
+    }
+    @media (max-width: 1199px){
+        #main_table{
+            overflow-x: scroll;
+            width: 1140px;
+        }
+        .main-container{
+            overflow-x: auto;
+        }
+    }
+    @media (max-width: 991px){
+        .form-wrapper form{
+            margin-top: 50px;
+        }
+        .table-body{
+            margin-top: 80px;
+        }
+    }
+
