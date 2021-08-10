@@ -133,14 +133,14 @@ def index(request):
     total_ost = corp_ost+kitchen_ost+hoz_ost+other_ost+karantin_ost
 
 
-    return render(request, 'account/index.html', {'categories':categories, 'corp_come_summa':sum(corp_come_summa),
-                                                  'kitchen_come_summa':sum(kitchen_come_summa), 'hoz_come_summa':sum(hoz_come_summa),
-                                                  'other_come_summa':sum(other_come_summa), 'karantin_come_summa':sum(karantin_come_summa),
-                                                  'total_summa':total_come_summa, 'corp_summa_order_total':sum(corp_summa_order_total),
-                                                  'kitchen_summa_order_total':sum(kitchen_summa_order_total), 'hoz_summa_order_total':sum(hoz_summa_order_total),
-                                                  'other_summa_order_total':sum(other_summa_order_total), 'karantin_summa_order_total':sum(karantin_summa_order_total),
-                                                  'total_order_summa':total_order_summa, 'corp_ost':corp_ost, 'kitchen_ost': kitchen_ost,'hoz_ost':hoz_ost,
-                                                  'other_ost':other_ost, 'karantin_ost': karantin_ost, 'total_ost':total_ost, 'month':month})
+    return render(request, 'account/index.html', {'categories':categories, 'corp_come_summa':format(sum(corp_come_summa), '10,d'),
+                                                  'kitchen_come_summa':format(sum(kitchen_come_summa), '10,d'), 'hoz_come_summa':format(sum(hoz_come_summa), '10,d'),
+                                                  'other_come_summa':format(sum(other_come_summa), '10,d'), 'karantin_come_summa':format(sum(karantin_come_summa), '10,d'),
+                                                  'total_summa':format(total_come_summa, '10,d'), 'corp_summa_order_total':format(sum(corp_summa_order_total), '10,d'),
+                                                  'kitchen_summa_order_total':format(sum(kitchen_summa_order_total), '10,d'), 'hoz_summa_order_total':format(sum(hoz_summa_order_total), '10,d'),
+                                                  'other_summa_order_total':format(sum(other_summa_order_total), '10,d'), 'karantin_summa_order_total':format(sum(karantin_summa_order_total), '10,d'),
+                                                  'total_order_summa':format(total_order_summa, '10,d'), 'corp_ost':format(corp_ost, '10,d'), 'kitchen_ost': format(kitchen_ost, '10,d'),'hoz_ost':format(hoz_ost, '10,d'),
+                                                  'other_ost':format(other_ost ,'10,d'), 'karantin_ost': format(karantin_ost, '10,d'), 'total_ost':format(total_ost, '10,d'), 'month':month})
 
 
 @login_required(login_url='/account/login')
@@ -289,18 +289,18 @@ def order_views(request, id):
         for i in total_corp_order:
             total_c.append(i.summa)
 
-        return render(request, 'account/table_order_corp.html', {'internet_orders_summa':sum(internet_orders_summa), 'tel_orders_summa':sum(tel_orders_summa),
-                                                                 'travel_orders_summa':sum(travel_orders_summa), 'proezd_orders_summa':sum(proezd_orders_summa),
-                                                                 'mob_orders_summa':sum(mob_orders_summa), 'cur_orders_summa':sum(cur_orders_summa), 'pech_orders_summa':sum(pech_orders_summa),
-                                                                 'ecp_orders_summa':sum(ecp_orders_summa), 'com_orders_summa':sum(com_orders_summa),
-                                                                 'other_orders_summa':sum(other_orders_summa), 'raz_orders_summa':sum(raz_orders_summa), 'total_c':sum(total_c), 'date':date})
+        return render(request, 'account/table_order_corp.html', {'internet_orders_summa':format(sum(internet_orders_summa), '10,d'), 'tel_orders_summa':format(sum(tel_orders_summa), '10,d'),
+                                                                 'travel_orders_summa':format(sum(travel_orders_summa), '10,d'), 'proezd_orders_summa':format(sum(proezd_orders_summa), '10,d'),
+                                                                 'mob_orders_summa':format(sum(mob_orders_summa), '10,d'), 'cur_orders_summa':format(sum(cur_orders_summa), '10,d'), 'pech_orders_summa':format(sum(pech_orders_summa), '10,d'),
+                                                                 'ecp_orders_summa':format(sum(ecp_orders_summa), '10,d'), 'com_orders_summa':format(sum(com_orders_summa), '10,d'),
+                                                                 'other_orders_summa':format(sum(other_orders_summa), '10,d'), 'raz_orders_summa':format(sum(raz_orders_summa), '10,d'), 'total_c':format(sum(total_c), '10,d'), 'date':date})
     else:
         account_category = Account_category.objects.get(pk=id)
         account_orders = Account_order.objects.filter(date__startswith=date, category=account_category)
         total_order_summa = []
         for item in account_orders:
             total_order_summa.append(item.summa)
-        return render(request, 'account/table_order.html', {'account_orders':account_orders, 'total_order_summa':sum(total_order_summa)})
+        return render(request, 'account/table_order.html', {'account_orders':account_orders, 'total_order_summa':format(sum(total_order_summa), '10,d')})
 
 
 def podorder_views(request, id, date):
@@ -310,4 +310,4 @@ def podorder_views(request, id, date):
     for item in account_orders:
         total_order_summa.append(item.summa)
 
-    return render(request, 'account/table_podcategory_order.html', {'account_orders':account_orders, 'total_order_summa':sum(total_order_summa)})
+    return render(request, 'account/table_podcategory_order.html', {'account_orders':account_orders, 'total_order_summa':format(sum(total_order_summa), '10,d')})
