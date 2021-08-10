@@ -51,6 +51,7 @@
 			padding-top: 15px;
 			display: block;"> Время забронировано</span> <br>
 			<span>{{meet.date}} - {{meet.date_do}}</span>
+			<span style="display: block; margin-top: 15px; margin-bottom:10px;">Комментарий: {{meet.description}}</span>
 		</td>
 	</tr>
 {% endif %}
@@ -112,6 +113,7 @@
 	</div>
 	<h4>Время забронировано</h4>
 	<span>{{meet.date}} - {{meet.date_do}}</span>
+	<span style="display: block;margin-top:15px;">Комментарий: {{meet.description}}</span>
 </div>
 {% endif %}
 <div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

@@ -90,9 +90,10 @@ def create(request):
         if int(type) == 2:
             date_ot = request.POST['date_ot']
             date_do = request.POST['date_do']
+            comment = request.POST['comment']
 
             task = Task_meet(user=request.user, type=type, date=date_ot, date_do=date_do,
-                             status=0)
+                             description=comment, status=0)
             try:
                 print(task)
                 task.save()

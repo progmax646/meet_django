@@ -90,6 +90,7 @@
 							padding-top: 15px;
 							display: block;"> Время забронировано</span> <br>
 							<span style="display: block;padding-bottom: 50px;">{{meet.date}} - {{meet.date_do}}</span>
+							<span style="display: block; margin-bottom: 10px;">Комментарий: {{meet.description}}</span>
 						</td>
 					</tr>
 					{% endif %}
@@ -156,6 +157,7 @@
 						</div>
 						<h4>Время забронировано</h4>
 						<span>{{meet.date}} - {{meet.date_do}}</span>
+						<span style="display: block;margin-top:15px;">Комментарий: {{meet.description}}</span>
 					</div>
 					{% endif %}
 				{% endfor %}
