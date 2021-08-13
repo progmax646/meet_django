@@ -1,12 +1,15 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Account_podcategory, Account_category, Account_coming, Account_order, Budget
+from .models import Account_podcategory, Account_category, Account_coming, Account_order, Budget, Color_order
 from datetime import date
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+import re
 import locale
+import random
+from . import modules
 
 
 def login_account(request):
@@ -135,7 +138,7 @@ def index(request):
     total_ost = corp_ost+kitchen_ost+hoz_ost+other_ost+karantin_ost
 
 
-    return render(request, 'account/index.html', {'categories':categories, 'corp_come_summa':format(sum(corp_come_summa), '10,d'),
+    return render(request, 'account/index.html', {'categories':categories, 'corp_come_summa':sum(corp_come_summa),
                                                   'kitchen_come_summa':format(sum(kitchen_come_summa), '10,d'), 'hoz_come_summa':format(sum(hoz_come_summa), '10,d'),
                                                   'other_come_summa':format(sum(other_come_summa), '10,d'), 'karantin_come_summa':format(sum(karantin_come_summa), '10,d'),
                                                   'total_summa':format(total_come_summa, '10,d'), 'corp_summa_order_total':format(sum(corp_summa_order_total), '10,d'),
@@ -178,6 +181,8 @@ def create(request):
 # создание расхода
 def create_order(request):
     date = datetime.today().strftime("%Y-%m-%d")
+    color_obj = Color_order.objects.filter(date=date)
+
     if request.method == 'POST':
         category_s = request.POST['category']
         podcategory = request.POST['podcategory']
@@ -191,7 +196,16 @@ def create_order(request):
 
     #     creating order
         category = Account_category.objects.get(pk=category_s)
-        account_order = Account_order(category=category, podcategory=account_podcategory, summa=summa, description=description, date=date)
+        if color_obj:
+            color = color_obj
+            account_order = Account_order(category=category, podcategory=account_podcategory, summa=summa,
+                                          description=description, date=date, color=color[0])
+        else:
+            r = modules.random_color()
+            color = Color_order.objects.create(color=r, date=date)
+            color.save()
+            account_order = Account_order(category=category, podcategory=account_podcategory, summa=summa,
+                                          description=description, date=date, color=color)
 
         try:
             account_order.save()

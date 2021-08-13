@@ -24,12 +24,25 @@ class Account_podcategory(models.Model):
         verbose_name_plural = 'Подкатегория'
 
 
+class Color_order(models.Model):
+    color = models.CharField(max_length=255)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.color
+
+    class Meta:
+        verbose_name = 'Цвета'
+        verbose_name_plural = 'Цвет'
+
+
 class Account_order(models.Model):
     category = models.ForeignKey(Account_category, on_delete=models.CASCADE)
     podcategory = models.ForeignKey(Account_podcategory, on_delete=models.CASCADE, null=True)
     summa = models.IntegerField()
     description = models.CharField(max_length=255)
     date = models.DateField()
+    color = models.ForeignKey(Color_order, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
@@ -64,3 +77,4 @@ class Budget(models.Model):
     class Meta:
         verbose_name = 'Бюджеты'
         verbose_name_plural = 'Бюджет'
+
