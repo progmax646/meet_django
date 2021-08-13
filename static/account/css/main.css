@@ -35,21 +35,28 @@ a:hover {
 }
 
 .nav-link:hover{
-	background: #EE1D23;
-	color: white;
+	color: #007bff !important;
 }
 .nav-link {
 	color: #636366;
 }
 
-.nav-link:active {
-	background: #EE1D23;
-	color: white;
+.nav-link_active{
+      color: #007bff;
 }
 
 .nav-link:focus {
-	background: #EE1D23;
-	color: white;
+	color: #007bff !important;
+}
+#table_order{
+  width: 80%;
+}
+.table1 th{
+  font-weight: 400 !important;
+  font-size: 12px !important;
+}
+#table_order h4{
+  display: none !important;
 }
 
 /*  таблица  */
@@ -180,14 +187,37 @@ tr th {
         width: 100%;
         margin: 0 auto;
         padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
     }
-    .table-body{
-        margin-top: 50px;
+    aside{
+      width: 20%;
+    }
+    
+    #main_table{
+      width: 80%;
+      margin-top: 3px;
+    }
+    .nav-link{
+      border-radius: unset !important;
+      border: none !important;
+      font-size: 15px !important;
     }
     
     .table-body .nav{
         display: flex;
-        width: 1140px;
+        flex-direction: column;
+        height: 100%;
+        margin-right: 10px;
+    }
+    .nav-tabs{
+      border-bottom: unset !important;
+    }
+    .nav-item:first-child{
+      border-top: 1px solid #ccc;
+    }
+    .nav-item{
+      border-bottom: 1px solid #ccc;
     }
     .form-wrapper{
         min-height: 200px;

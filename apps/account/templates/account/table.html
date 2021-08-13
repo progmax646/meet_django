@@ -1,18 +1,21 @@
 {% load service_html %}
 <div class="main-container">
-    <div class="table-body">
-        <ul class="nav nav-tabs">
-          
-        <li class="nav-item">
-            <a class="nav-link" href="#" onclick="show_table()">Свод за ---</a>
-        </li>
-            {% for item in categories %}
-        <li class="nav-item">
-            <a class="nav-link" href="#" onclick="main_table({{item.id}}, '{{item.name}}')">{{item.name}}</a>
-        </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <aside>
+        <div class="table-body">
+            <ul class="nav nav-tabs">
+              
+            <li class="nav-item">
+                <a class="nav-link nav-link_active" href="#" onclick="show_table()">Главная</a>
+            </li>
+                {% for item in categories %}
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="main_table({{item.id}}, '{{item.name}}')">{{item.name}}</a>
+            </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+    
     <div id="main_table">
         <table class="table1">
             <thead>
