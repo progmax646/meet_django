@@ -3,7 +3,7 @@
 {% block 'content' %}
     <div class="row">
 			<div class="col-md-12">
-				<h1 class="text-center" style="margin-top: 25px; font-weight: 600; color: #636366;">Конструктор встреч <span class="badge badge-danger">LegalAct</span></h1>
+				<h1 class="text-center const__header" style="margin-top: 25px; font-weight: 600; color: #636366;">Конструктор встреч <span class="badge badge-danger">LegalAct</span></h1>
 			</div>
 			<div class="col-md-3" style="padding-left:24px; display: inline-flex;margin-top: 25px;">
 				<a href="{% url 'meet_create' %}" class="btn-use" style="margin-right: 5px; height: 37px;">Создать</a>
@@ -26,7 +26,7 @@
 		</div>
 
 	<div class="row">
-		<div class="col-md-9 col-sm-12" id="block-story-meet">
+		<div class="col-xl-9" id="block-story-meet">
 			<h4 style="margin-bottom: 35px;" class="text-center">Список</h4>
 			<table class="table" style="z-index: 2">
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
@@ -96,7 +96,7 @@
 					{% endif %}
 <!--				mobile table -->
 					{% if meet.type == 1%}
-					<div id="mobile-table" class="col-10 col-md-9">
+					<div id="mobile-table">
 						{% if meet.status != 2%}
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
@@ -233,7 +233,7 @@
 			</div>
 		</div>
 		<hr>
-		<div class="col-md-3 col-10 last-block-meet" style="display: block;margin: 0 auto;margin-top: 114px; height: 100%;">
+		<div class="col-xl-3 col-10 last-block-meet" style="display: block;margin: 0 auto;margin-top: 114px; height: 100%;">
 			<h4 style="padding-top: 25px;">Последнее добавление</h4>
 			<table class="table" id="last-meet">
 				<tbody>

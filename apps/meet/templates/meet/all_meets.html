@@ -66,7 +66,8 @@
 {% for meet in meets %}
 {% if meet.status != 1 %}
 <!--				mobile table -->
-<div id="mobile-table" class="col-10 col-md-9" >
+<div id="mobile-table" >
+	
 	{% if meet.status != 2 and meet.type == 1 %}
 	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
@@ -101,7 +102,7 @@
 	{% endif %}
 </div>
 {% if meet.status != 2 and meet.type == 2  %}
-<div id="mobile-table" class="col-10 col-md-9 mob-type">
+<div id="mobile-table" class="mob-type">
 	<div class="panel_body">
 		<span class="fa fa-ellipsis-v" onclick="getWindow({{meet.id}})"></span>
 		<div id="panel{{meet.id}}" class="setting">
