@@ -68,7 +68,7 @@
 <!--				mobile table -->
 <div id="mobile-table">
 	{% if meet.status != 2 and meet.type == 1 %}
-	<ol style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
+	<ol id="pulse-mobile-table" style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
 		<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
