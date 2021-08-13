@@ -18,4 +18,3 @@ function delete_meet(id){
       $('#ol_mobile'+id).hide();
     });
 }
-
