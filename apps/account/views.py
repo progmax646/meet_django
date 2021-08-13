@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Account_podcategory, Account_category, Account_coming, Account_order
+from .models import Account_podcategory, Account_category, Account_coming, Account_order, Budget
 from datetime import date
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
@@ -27,6 +27,7 @@ def login_account(request):
 @login_required(login_url='/account/login')
 def index(request):
     categories = Account_category.objects.all()
+    budjets = Budget.objects.order_by('category')
     corp_category = Account_category.objects.get(name='Корп расходы')
     kitchen_category = Account_category.objects.get(name='Кухня')
     hoz_category = Account_category.objects.get(name='Хоз товары')
@@ -34,6 +35,7 @@ def index(request):
     karantin_category = Account_category.objects.get(name='Карантин')
     if request.method == 'POST':
         month = request.POST['month']
+        print(month)
         corp_comings = Account_coming.objects.filter(date__startswith=month).filter(category=corp_category)
         kitchen_comings = Account_coming.objects.filter(date__startswith=month).filter(category=kitchen_category)
         hoz_comings = Account_coming.objects.filter(date__startswith=month).filter(category=hoz_category)
@@ -140,7 +142,7 @@ def index(request):
                                                   'kitchen_summa_order_total':format(sum(kitchen_summa_order_total), '10,d'), 'hoz_summa_order_total':format(sum(hoz_summa_order_total), '10,d'),
                                                   'other_summa_order_total':format(sum(other_summa_order_total), '10,d'), 'karantin_summa_order_total':format(sum(karantin_summa_order_total), '10,d'),
                                                   'total_order_summa':format(total_order_summa, '10,d'), 'corp_ost':format(corp_ost, '10,d'), 'kitchen_ost': format(kitchen_ost, '10,d'),'hoz_ost':format(hoz_ost, '10,d'),
-                                                  'other_ost':format(other_ost ,'10,d'), 'karantin_ost': format(karantin_ost, '10,d'), 'total_ost':format(total_ost, '10,d'), 'month':month})
+                                                  'other_ost':format(other_ost ,'10,d'), 'karantin_ost': format(karantin_ost, '10,d'), 'total_ost':format(total_ost, '10,d'), 'month':month, 'budjets':budjets})
 
 
 @login_required(login_url='/account/login')
@@ -311,3 +313,11 @@ def podorder_views(request, id, date):
         total_order_summa.append(item.summa)
 
     return render(request, 'account/table_podcategory_order.html', {'account_orders':account_orders, 'total_order_summa':format(sum(total_order_summa), '10,d')})
+
+
+def edit_budget(request, id):
+    summa = request.GET['summa']
+    budjet = Budget.objects.get(pk=id)
+    budjet.summa = int(summa)
+    budjet.save()
+    return redirect('/account')

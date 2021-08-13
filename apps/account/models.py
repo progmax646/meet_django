@@ -52,3 +52,15 @@ class Account_coming(models.Model):
     class Meta:
         verbose_name = 'Приходы'
         verbose_name_plural = 'Приход'
+
+
+class Budget(models.Model):
+    summa = models.IntegerField()
+    category = models.ForeignKey(Account_category, on_delete=models.CASCADE, blank=True)
+
+    def __str__(self):
+        return self.category.name
+
+    class Meta:
+        verbose_name = 'Бюджеты'
+        verbose_name_plural = 'Бюджет'

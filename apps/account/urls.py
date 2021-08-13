@@ -9,5 +9,6 @@ urlpatterns = [
     path('create', views.create, name='account.create'),
     path('create-order', views.create_order, name='account.create-order'),
     path('order-category/<int:id>', views.order_views, name='account.order'),
-    path('order-podcategory/<int:id>/<date>', views.podorder_views, name='account.podorder')
+    path('order-podcategory/<int:id>/<date>', views.podorder_views, name='account.podorder'),
+    path('edit-budget/<int:id>', views.edit_budget, name='account.budget_edit'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
