@@ -65,7 +65,7 @@
 </tr>
 {% for meet in meets %}
 {% if meet.status != 1 %}
-<!--				mobile table -->
+<!--				mobile table  -->
 <div id="mobile-table">
 	{% if meet.status != 2 and meet.type == 1 %}
 	<ol id="pulse-mobile-table" style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
