@@ -225,82 +225,82 @@ def order_views(request, id):
         account_category = Account_category.objects.get(pk=id)
         # интернет
         internet_podcategories = Account_podcategory.objects.get(name='Интернет')
-        internet_orders = Account_order.objects.filter(podcategory=internet_podcategories)
+        internet_orders = Account_order.objects.filter(podcategory=internet_podcategories, date__startswith=date)
         internet_orders_summa = []
         for internet in internet_orders:
             internet_orders_summa.append(internet.summa)
 
         # Телефонная связь
         tel_podcategories = Account_podcategory.objects.get(name='Телефонная связь')
-        tel_orders = Account_order.objects.filter(podcategory=tel_podcategories)
+        tel_orders = Account_order.objects.filter(podcategory=tel_podcategories, date__startswith=date)
         tel_orders_summa = []
         for tel in tel_orders:
             tel_orders_summa.append(tel.summa)
 
         # Поездки на такси/личное авто
         travel_podcategories = Account_podcategory.objects.get(name='Поездки на такси/личное авто')
-        travel_orders = Account_order.objects.filter(podcategory=travel_podcategories)
+        travel_orders = Account_order.objects.filter(podcategory=travel_podcategories, date__startswith=date)
         travel_orders_summa = []
         for travel in travel_orders:
             travel_orders_summa.append(travel.summa)
 
         # Проездные карточки
         proezd_podcategories = Account_podcategory.objects.get(name='Проездные карточки')
-        proezd_orders = Account_order.objects.filter(podcategory=proezd_podcategories)
+        proezd_orders = Account_order.objects.filter(podcategory=proezd_podcategories, date__startswith=date)
         proezd_orders_summa = []
         for proezd in proezd_orders:
             proezd_orders_summa.append(proezd.summa)
 
         # Мобильная связь
         mob_podcategories = Account_podcategory.objects.get(name='Мобильная связь')
-        mob_orders = Account_order.objects.filter(podcategory=mob_podcategories)
+        mob_orders = Account_order.objects.filter(podcategory=mob_podcategories, date__startswith=date)
         mob_orders_summa = []
         for mob in mob_orders:
             mob_orders_summa.append(mob.summa)
 
         # 	Расход по курьеру/топливо
         cur_podcategories = Account_podcategory.objects.get(name='Расход по курьеру/топливо')
-        cur_orders = Account_order.objects.filter(podcategory=cur_podcategories)
+        cur_orders = Account_order.objects.filter(podcategory=cur_podcategories, date__startswith=date)
         cur_orders_summa = []
         for cur in cur_orders:
             cur_orders_summa.append(cur.summa)
 
         # 	Печати для клиентов
         pech_podcategories = Account_podcategory.objects.get(name='Печати для клиентов')
-        pech_orders = Account_order.objects.filter(podcategory=pech_podcategories)
+        pech_orders = Account_order.objects.filter(podcategory=pech_podcategories, date__startswith=date)
         pech_orders_summa = []
         for pech in pech_orders:
             pech_orders_summa.append(pech.summa)
 
         # 	Эцп ключи для клиентов
         ecp_podcategories = Account_podcategory.objects.get(name='Эцп ключи для клиентов')
-        ecp_orders = Account_order.objects.filter(podcategory=ecp_podcategories)
+        ecp_orders = Account_order.objects.filter(podcategory=ecp_podcategories, date__startswith=date)
         ecp_orders_summa = []
         for ecp in ecp_orders:
             ecp_orders_summa.append(ecp.summa)
 
         # 		Коммунальные услуги офиса
         com_podcategories = Account_podcategory.objects.get(name='Коммунальные услуги офиса')
-        com_orders = Account_order.objects.filter(podcategory=com_podcategories)
+        com_orders = Account_order.objects.filter(podcategory=com_podcategories, date__startswith=date)
         com_orders_summa = []
         for com in com_orders:
             com_orders_summa.append(com.summa)
 
         # 		Почтовые расходы
         other_podcategories = Account_podcategory.objects.get(name='Почтовые расходы')
-        other_orders = Account_order.objects.filter(podcategory=other_podcategories)
+        other_orders = Account_order.objects.filter(podcategory=other_podcategories, date__startswith=date)
         other_orders_summa = []
         for other in other_orders:
             other_orders_summa.append(other.summa)
 
         # 		Разовые расходы из корп средств
         raz_podcategories = Account_podcategory.objects.get(name='Разовые расходы из корп средств')
-        raz_orders = Account_order.objects.filter(podcategory=raz_podcategories)
+        raz_orders = Account_order.objects.filter(podcategory=raz_podcategories, date__startswith=date)
         raz_orders_summa = []
         for raz in raz_orders:
             raz_orders_summa.append(raz.summa)
 
-        total_corp_order = Account_order.objects.filter(category=account_category)
+        total_corp_order = Account_order.objects.filter(category=account_category, date__startswith=date)
         total_c = []
         for i in total_corp_order:
             total_c.append(i.summa)
@@ -309,7 +309,11 @@ def order_views(request, id):
                                                                  'travel_orders_summa':format(sum(travel_orders_summa), '10,d'), 'proezd_orders_summa':format(sum(proezd_orders_summa), '10,d'),
                                                                  'mob_orders_summa':format(sum(mob_orders_summa), '10,d'), 'cur_orders_summa':format(sum(cur_orders_summa), '10,d'), 'pech_orders_summa':format(sum(pech_orders_summa), '10,d'),
                                                                  'ecp_orders_summa':format(sum(ecp_orders_summa), '10,d'), 'com_orders_summa':format(sum(com_orders_summa), '10,d'),
-                                                                 'other_orders_summa':format(sum(other_orders_summa), '10,d'), 'raz_orders_summa':format(sum(raz_orders_summa), '10,d'), 'total_c':format(sum(total_c), '10,d'), 'date':date})
+                                                                 'other_orders_summa':format(sum(other_orders_summa), '10,d'), 'raz_orders_summa':format(sum(raz_orders_summa), '10,d'), 'total_c':format(sum(total_c), '10,d'), 'date':date,
+                                                                 'internet_orders':internet_orders,'tel_orders':tel_orders, 'travel_orders':travel_orders, 'proezd_orders':proezd_orders, 'mob_orders':mob_orders,
+                                                                 'cur_orders':cur_orders, 'pech_orders':pech_orders, 'ecp_orders':ecp_orders, 'com_orders':com_orders,'other_orders':other_orders, 'raz_orders':raz_orders,
+
+                                                                 })
     else:
         account_category = Account_category.objects.get(pk=id)
         account_orders = Account_order.objects.filter(date__startswith=date, category=account_category)

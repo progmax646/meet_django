@@ -13,58 +13,135 @@
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/1/{{date}}">Интернет</a></td>
         <td>{{internet_orders_summa}} сум</td>
+            {% for item in internet_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/2/{{date}}">Телефонная связь</a></td>
         <td>{{tel_orders_summa}} сум</td>
+            {% for item in tel_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/3/{{date}}">Поездки на такси/личное авто</a></td>
         <td>{{travel_orders_summa}} сум</td>
+            {% for item in travel_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/4/{{date}}">Проездные карточки</a></td>
         <td>{{proezd_orders_summa}} сум</td>
+            {% for item in proezd_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/5/{{date}}">Мобильная связь</a></td>
         <td>{{mob_orders_summa}} сум</td>
+            {% for item in mob_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/6/{{date}}">Расход по курьеру/топливо</a></td>
         <td>{{cur_orders_summa}} сум</td>
+            {% for item in cur_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/7/{{date}}">Печати для клиентов</a></td>
         <td>{{pech_orders_summa}} сум</td>
+            {% for item in pech_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/8/{{date}}">Эцп ключи для клиентов</a></td>
         <td>{{ecp_orders_summa}} сум</td>
+            {% for item in ecp_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/9/{{date}}">Коммунальные услуги офиса</a></td>
         <td>{{com_orders_summa}} сум</td>
+            {% for item in com_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/10/{{date}}">Почтовые расходы</a></td>
         <td>{{other_orders_summa}} сум</td>
+            {% for item in other_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     </tr>
     <tr>
         <td></td>
         <td><a class="table__link" href="/account/order-podcategory/11/{{date}}">Разовые расходы из корп средств</a></td>
         <td>{{raz_orders_summa}} сум</td>
+            {% for item in raz_orders %}
+                <tr style="background-color: {{item.color.color}};">
+                    <td>{{item.date}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.summa}} сум</td>
+                </tr>
+            {% endfor %}
     </tr>
     <tr>
         <th>Итого расход</th>
