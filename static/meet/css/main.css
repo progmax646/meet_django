@@ -203,6 +203,12 @@ body {
   left: 0;
 }
 
+.table p{
+    width: 100%;
+}
+.table td{
+    word-break: break-word;
+}
 
 @keyframes pulse {
 	0% {

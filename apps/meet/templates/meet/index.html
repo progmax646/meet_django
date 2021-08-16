@@ -32,7 +32,7 @@
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
 					<tr>
 						<th>Клиент</th>
-						<th>Дата</th>
+						<th style="width: 120px;">Дата</th>
 						<th>Описание</th>
 						<th>Статус</th>
 						<th>Сервис</th>
@@ -144,6 +144,7 @@
 							</div>
 						</div>
 					</div>
+					<!--  -->
 					{% else %}
 					<div id="mobile-table" class="col-10 col-md-9 mob-type">
 						<div class="panel_body">
@@ -239,8 +240,8 @@
 				<tbody>
 				{% for item in last_meet %}
 					<tr>
-						<td>{{item.client_name}}</td>
-						<td>{{item.date}}</td>
+						<td><p>{{item.client_name}}</p></td>
+						<td style="width: 80px;"><p>{{item.date}}</p></td>
 					</tr>
 				{% endfor %}
 				</tbody>
