@@ -2,7 +2,7 @@
 <table class="table1">
     <thead>
     <tr>
-        <th>---</th>
+        <th style="width: 150px;">---</th>
         <th>Наименование расхода</th>
         <th>Сумма</th>
     </tr>
@@ -11,136 +11,143 @@
     <tbody>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/1/{{date}}">Интернет</a></td>
+        <td><a data-tab="link1" class="table__link" href="/account/order-podcategory/1/{{date}}">Интернет <i class="fa fa-chevron-right"></i></a>
+       
+        </td>
         <td>{{internet_orders_summa}} сум</td>
-            {% for item in internet_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
-            {% endfor %}
+        {% for item in internet_orders %}
+            
+        <tr style="padding: 0;" class="table__tr link1" >
+            <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+            <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+            <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+        </tr>
+    
+        
+    {% endfor %}   
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/2/{{date}}">Телефонная связь</a></td>
+        <td><a data-tab="link2" class="table__link" href="/account/order-podcategory/2/{{date}}">Телефонная связь <i class="fa fa-chevron-right"></i></a></td>
         <td>{{tel_orders_summa}} сум</td>
             {% for item in tel_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link2" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/3/{{date}}">Поездки на такси/личное авто</a></td>
+        <td><a data-tab="link3" class="table__link" href="/account/order-podcategory/3/{{date}}">Поездки на такси/личное авто <i class="fa fa-chevron-right"></i></a></td>
         <td>{{travel_orders_summa}} сум</td>
             {% for item in travel_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link3" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/4/{{date}}">Проездные карточки</a></td>
+        <td><a data-tab="link4" class="table__link" href="/account/order-podcategory/4/{{date}}">Проездные карточки <i class="fa fa-chevron-right"></i></a></td>
         <td>{{proezd_orders_summa}} сум</td>
             {% for item in proezd_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link4" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/5/{{date}}">Мобильная связь</a></td>
+        <td><a data-tab="link5" class="table__link" href="/account/order-podcategory/5/{{date}}">Мобильная связь <i class="fa fa-chevron-right"></i></a></td>
         <td>{{mob_orders_summa}} сум</td>
             {% for item in mob_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link5" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/6/{{date}}">Расход по курьеру/топливо</a></td>
+        <td><a data-tab="link6" class="table__link" href="/account/order-podcategory/6/{{date}}">Расход по курьеру/топливо <i class="fa fa-chevron-right"></i></a></td>
         <td>{{cur_orders_summa}} сум</td>
             {% for item in cur_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link6" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/7/{{date}}">Печати для клиентов</a></td>
+        <td><a data-tab="link7" class="table__link" href="/account/order-podcategory/7/{{date}}">Печати для клиентов <i class="fa fa-chevron-right"></i></a></td>
         <td>{{pech_orders_summa}} сум</td>
             {% for item in pech_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link7" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/8/{{date}}">Эцп ключи для клиентов</a></td>
+        <td><a data-tab="link8" class="table__link" href="/account/order-podcategory/8/{{date}}">Эцп ключи для клиентов <i class="fa fa-chevron-right"></i></a></td>
         <td>{{ecp_orders_summa}} сум</td>
             {% for item in ecp_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            
+            <tr style="padding: 0;" class="table__tr link8" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
+            
             {% endfor %}
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/9/{{date}}">Коммунальные услуги офиса</a></td>
+        <td><a data-tab="link9" class="table__link" href="/account/order-podcategory/9/{{date}}">Коммунальные услуги офиса <i class="fa fa-chevron-right"></i></a></td>
         <td>{{com_orders_summa}} сум</td>
             {% for item in com_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link9" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/10/{{date}}">Почтовые расходы</a></td>
+        <td><a data-tab="link10" class="table__link" href="/account/order-podcategory/10/{{date}}">Почтовые расходы <i class="fa fa-chevron-right"></i></a></td>
         <td>{{other_orders_summa}} сум</td>
             {% for item in other_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link10" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     </tr>
     <tr>
         <td></td>
-        <td><a class="table__link" href="/account/order-podcategory/11/{{date}}">Разовые расходы из корп средств</a></td>
+        <td><a data-tab="link11" class="table__link" href="/account/order-podcategory/11/{{date}}">Разовые расходы из корп средств <i class="fa fa-chevron-right"></i></a></td>
         <td>{{raz_orders_summa}} сум</td>
             {% for item in raz_orders %}
-                <tr style="background-color: {{item.color.color}};">
-                    <td>{{item.date}}</td>
-                    <td>{{item.description}}</td>
-                    <td>{{item.summa}} сум</td>
-                </tr>
+            <tr style="padding: 0;" class="table__tr link11" >
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.description}}</div></td>
+                <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.summa}} сум</div></td>
+            </tr>
             {% endfor %}
     </tr>
     <tr>
@@ -150,3 +157,34 @@
     </tr>
     </tbody>
 </table>
+
+<style>
+    .table__tr div{
+        display: none;
+        padding: 10px 15px;
+    }
+    
+    .table__link{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .table__link .fa{
+        font-size: 12px;
+        transition: 0.3s ease;
+    }
+    .link-active .fa{
+        transform: rotate(90deg);
+    }
+    
+    
+</style>
+
+<script>
+    $('.table__link').click(function(e){
+        e.preventDefault();
+        $(this).toggleClass('link-active');
+        let tab = $(this).attr('data-tab');
+        $(`.${tab} div`).slideToggle(500);
+    });
+</script>
