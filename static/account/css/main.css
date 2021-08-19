@@ -229,7 +229,6 @@ aside{
 @media (max-width: 1199px){
     #main_table,
     #table_order{
-        overflow-x: scroll;
         width: 1140px;
     }
     .main-container{
