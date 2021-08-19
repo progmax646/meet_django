@@ -53,11 +53,12 @@ def searchNotification(request=None):
             if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
                 # -1001296908744
                 # 7339360
+                # 272339311
 
                 try:
                     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                     params = {
-                        'chat_id': '7339360',
+                        'chat_id': '272339311',
                         'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime2.hour+5}:{str(datetime.now())[14:16]}'
                     }
 
