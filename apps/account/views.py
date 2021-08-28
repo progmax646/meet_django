@@ -88,7 +88,7 @@ def index(request):
 
     # корп расходы
 
-    corp_order = Account_order.objects.filter(category=corp_category)
+    corp_order = Account_order.objects.filter(date__startswith=month).filter(category=corp_category)
     corp_summa_order_total = []
 
     for corp_order_item in corp_order:
@@ -96,21 +96,21 @@ def index(request):
 
     # кухня расходы
 
-    kitchen_order = Account_order.objects.filter(category=kitchen_category)
+    kitchen_order = Account_order.objects.filter(date__startswith=month).filter(category=kitchen_category)
     kitchen_summa_order_total = []
 
     for kitchen_order_item in kitchen_order:
         kitchen_summa_order_total.append(kitchen_order_item.summa)
 
     # хоз товары расходы
-    hoz_order = Account_order.objects.filter(category=hoz_category)
+    hoz_order = Account_order.objects.filter(date__startswith=month).filter(category=hoz_category)
     hoz_summa_order_total = []
 
     for hoz_order_item in hoz_order:
         hoz_summa_order_total.append(hoz_order_item.summa)
 
     # прочие расходы
-    other_order = Account_order.objects.filter(category=other_category)
+    other_order = Account_order.objects.filter(date__startswith=month).filter(category=other_category)
     other_summa_order_total = []
 
     for other_order_item in other_order:
@@ -118,7 +118,7 @@ def index(request):
 
     # карантин
 
-    karantin_order = Account_order.objects.filter(category=karantin_category)
+    karantin_order = Account_order.objects.filter(date__startswith=month).filter(category=karantin_category)
     karantin_summa_order_total = []
 
     for karantin_order_item in karantin_order:
