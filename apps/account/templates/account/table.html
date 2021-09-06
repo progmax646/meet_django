@@ -58,13 +58,10 @@
                 <td>---</td>
             </tr>
             <tr>
-                <th>Остаток на ---</th>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
-                <td>---</td>
+                <th>Остаток c прошлого месяца</th>
+                {% for item in remainders %}
+                <td>{{item.summa}} сум</td>
+                {% endfor %}
             </tr>
             <tr>
                 <th>Приход в течении {% get_month_day month as item %} {{item}}</th>
@@ -104,11 +101,21 @@
             </tr>
             </tbody>
         </table>
+        <form action="/account/close-month" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="corp_ost" value="{{corp_ost}}">
+            <input type="hidden" name="kitchen_ost" value="{{kitchen_ost}}">
+            <input type="hidden" name="hoz_ost" value="{{hoz_ost}}">
+            <input type="hidden" name="other_ost" value="{{other_ost}}">
+            <input type="hidden" name="karantin_ost" value="{{karantin_ost}}">
+            <input type="hidden" name="total_ost" value="{{total_ost}}">
+            <input type="hidden" name="month" value="{{month}}">
+            <button type="submit" class="btn-a">Закрыть месяц</button>
+        </form>
     </div>
     <div id="table_order" style="display:none;">
     </div>
 </div>
-
 <style>
     #budjet td p {
         display:contents;

@@ -78,3 +78,15 @@ class Budget(models.Model):
         verbose_name = 'Бюджеты'
         verbose_name_plural = 'Бюджет'
 
+
+class Remainder(models.Model):
+    category = models.ForeignKey(Account_category, on_delete=models.CASCADE, blank=True)
+    date = models.CharField(max_length=255)
+    summa = models.IntegerField()
+
+    def __str__(self):
+        return self.date
+    class Meta:
+        verbose_name = 'Остатки'
+        verbose_name_plural = 'Остаток'
+
