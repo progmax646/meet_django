@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
 
+class Status:
+    during = 0
+    done = 1
+    remove = 2
+
+
 class Task_meet(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     type = models.IntegerField(default=1)
