@@ -136,7 +136,7 @@ def index(request):
         karantin_summa_order_total.append(karantin_order_item.summa)
 
     # всего расход
-    total_order_summa = sum(corp_summa_order_total) + sum(kitchen_summa_order_total) + sum(other_summa_order_total) + sum(karantin_summa_order_total)
+    total_order_summa = sum(corp_summa_order_total) + sum(kitchen_summa_order_total) + sum(other_summa_order_total) + sum(karantin_summa_order_total) + sum(hoz_summa_order_total)
 
     # остатки
     for ost_corp in corp_remainders:
