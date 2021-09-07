@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io
 
+venv
+*.sqlite
+.idea
+
 ### OSX ###
 .DS_Store
 .AppleDouble

@@ -3,9 +3,9 @@ from django.contrib.auth.models import User, AbstractUser
 
 
 class Status:
-    during = 0
-    done = 1
-    remove = 2
+    DURING = 0
+    DONE = 1
+    REMOVE = 2
 
 
 class Task_meet(models.Model):
@@ -16,7 +16,7 @@ class Task_meet(models.Model):
     date = models.DateTimeField()
     date_do = models.DateTimeField(null=True)
     status = models.IntegerField()
-    notification = models.DateTimeField(null=True)
+    notification = models.BooleanField(null=True)
     created_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
