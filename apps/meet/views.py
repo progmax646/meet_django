@@ -38,24 +38,31 @@ def search_notification(request=None):
         'status': True,
         'error': str()
     }
-    now = timezone.now() + timedelta(hours=5)
-    meets = Task_meet.objects.filter(status=Status.during, date__startswith=now.date())
+    now = timezone.now()
+    after_one_hour__now = now + timedelta(hours=1)
+    meets = Task_meet.objects.filter(status=Status.DURING)\
+        .filter(date__startswith=now.date())\
+        .filter(date__gte=now)\
+        .filter(date__lte=after_one_hour__now)
     for meet in meets:
         if meet.notification:
-            if (meet.date - timedelta(hours=1)) < now:
-                # -1001296908744
-                # 7339360
-                # 272339311
-                try:
-                    url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
-                    params = {
-                        'chat_id': '272339311',
-                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {meet.date.strftime("%H:%M")}'
-                    }
-                    r = requests.get(url=url, params=params)
-                except Exception as e:
-                    status['status'] = False
-                    status['error'] = e
+            print(meet)
+            # -1001296908744
+            # 7339360
+            # 272339311
+            try:
+                url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
+                params = {
+                    'chat_id': '272339311',
+                    'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {timezone.localtime(meet.date).strftime("%H:%M")}'
+                }
+                r = requests.get(url=url, params=params)
+                meet.notification = False
+                meet.save()
+            except Exception as e:
+                status['status'] = False
+                status['error'] = e
+                break
     return JsonResponse(status)
 
 
@@ -96,7 +103,7 @@ def create(request):
             if 'is_private' in request.POST:
                 is_private = True
                 task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
-                                 status=0, notification=datetime2 - timedelta(hours=1))
+                                 status=0, notification=True)
 
             else:
                 is_private = False

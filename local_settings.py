@@ -21,20 +21,11 @@ STATICFILES_DIRS = [
     '/python-projects/meet_django/static/',
 ]
 
-API_TELEGRAM = '624760197:AAFOx7I3xaB6wbwedsmEZqAd8BfgPYqSOu4s_3Q'
+API_TELEGRAM = '1869665786:AAGBwXI1YJ1sD1u3DLjg21oo1gYzFYIcQ7Q'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-        'NAME': 'crm',
-
-        'USER': 'postgres',
-
-        'PASSWORD': '2151',
-
-        'HOST': 'localhost',
-
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'crm.sqlite',
     }
 }
