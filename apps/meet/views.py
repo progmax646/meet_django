@@ -1,22 +1,16 @@
-import time
-from django.shortcuts import render, HttpResponse, redirect
-from .models import Task_meet
-from django.db.models.functions import Length
 from datetime import date, timedelta
+
 import requests
+from dateutil.parser import parse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-import urllib
-import requests
-from django.core.paginator import Paginator
-from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime, timedelta
-from dateutil.parser import parse
+from django.http import JsonResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.utils import timezone
-import pytz
-import asyncio
-from asgiref.sync import sync_to_async
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import Task_meet, Status
 
 try:
     from local_settings import API_TELEGRAM
@@ -39,36 +33,30 @@ def login_meet(request):
     return render(request, 'meet/login.html')
 
 
-def searchNotification(request=None):
-    status = 'Не было напоминаний'
-    today = date.today()
-    now = datetime.now()
-    today_hour = datetime.now().hour
-    today_minute = datetime.now().minute
-    meets = Task_meet.objects.filter(status=0, date__startswith=today)
+def search_notification(request=None):
+    status = {
+        'status': True,
+        'error': str()
+    }
+    now = timezone.now()
+    meets = Task_meet.objects.filter(status=Status.during, date__startswith=now.date())
     for meet in meets:
         if meet.notification:
-            datetime1 = parse(str(meet.notification))
-            datetime2 = parse(str(meet.date))
-            if datetime1.hour + 5 == today_hour and datetime1.minute == today_minute:
+            if (meet.date - timedelta(hours=1)) < now:
                 # -1001296908744
                 # 7339360
                 # 272339311
-
                 try:
                     url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                     params = {
-                        'chat_id': '272339311',
-                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {datetime2.hour+5}:{str(datetime.now())[14:16]}'
+                        'chat_id': '-1001177124794',
+                        'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {meet.date.strftime("%H:%M")}'
                     }
-
                     r = requests.get(url=url, params=params)
-                    status = 'True'
                 except Exception as e:
-                    status = e
-            else:
-                status = 'False'
-    return HttpResponse(status)
+                    status['status'] = False
+                    status['error'] = e
+    return JsonResponse(status)
 
 
 @login_required(login_url='/meet/login')
@@ -167,7 +155,6 @@ def delete(request):
         meet.status = 2
         meet.save()
 
-
     return redirect('/meet')
 
 
@@ -209,12 +196,13 @@ def logout_meet(request):
     logout(request)
     return redirect('/meet/login')
 
-# функция для редактирования бронирования 
+
+# функция для редактирования бронирования
 
 
 def get_reserve_page(request, id):
     meet = Task_meet.objects.get(pk=id)
-    return render(request, 'meet/edit.html', {'meet':meet})
+    return render(request, 'meet/edit.html', {'meet': meet})
 
 
 def edit_reserve(request):
@@ -230,4 +218,3 @@ def edit_reserve(request):
         return redirect('/meet')
 
 # функция проверки встреч
-
