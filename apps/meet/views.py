@@ -38,7 +38,7 @@ def search_notification(request=None):
         'status': True,
         'error': str()
     }
-    now = timezone.now()
+    now = timezone.now() + timedelta(hours=5)
     meets = Task_meet.objects.filter(status=Status.during, date__startswith=now.date())
     for meet in meets:
         if meet.notification:
