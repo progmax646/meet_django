@@ -26,13 +26,29 @@
     <tr style="background-color: {{item.color.color}}">
         <td>{{item.date}}</td>
         <td>{{item.description}}</td>
-        <td>{{item.summa}} сум</td>
+        <td id="order_summa{{item.id}}">{{item.summa}} сум</td>
     </tr>
+    <script>
+               let order_summa{{item.id}} = document.getElementById("order_summa{{item.id}}");
+               try {
+                    order_summa{{item.id}}.innerHTML = prettify({{item.summa}}) + ' сум';
+                    }catch {
+                       alert('error');
+                    }
+        </script>
     {% endfor %}
     <tr>
         <th>Итого расход</th>
-        <td>{{total_order_summa}} сум</td>
+        <td id="total_order_summa">{{total_order_summa}} сум</td>
         <td></td>
+            <script>
+               let total_order_summa = document.getElementById("total_order_summa");
+               try {
+                    total_order_summa.innerHTML = prettify({{total_order_summa}}) + ' сум';
+                    }catch {
+                       alert('error');
+                    }
+        </script>
     </tr>
     </tbody>
 </table>

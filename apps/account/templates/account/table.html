@@ -60,26 +60,70 @@
             <tr>
                 <th>Остаток c прошлого месяца</th>
                 {% for item in remainders %}
-                <td>{{item.summa}} сум</td>
+                    <td id="ost_summa{{item.id}}">{{item.summa}} сум</td>
+                    <script>
+                        let summa = document.getElementById("ost_summa{{item.id}}");
+                        try {
+                            summa.innerHTML = prettify({{item.summa}}) + ' сум';
+                        }catch {
+                            alert('error');
+                        }
+                    </script>
                 {% endfor %}
             </tr>
             <tr>
                 <th>Приход в течении {% get_month_day month as item %} {{item}}</th>
-                <td>{{corp_come_summa}} сум</td>
-                <td>{{kitchen_come_summa}} сум</td>
-                <td>{{hoz_come_summa}} сум</td>
-                <td>{{other_come_summa}} сум</td>
-                <td>{{karantin_come_summa}} сум</td>
-                <td>{{total_summa}} сум</td>
+                <td id="corp_come_summa">{{corp_come_summa}} сум</td>
+                <td id="kitchen_come_summa">{{kitchen_come_summa}} сум</td>
+                <td id="hoz_come_summa">{{hoz_come_summa}} сум</td>
+                <td id="other_come_summa">{{other_come_summa}} сум</td>
+                <td id="karantin_come_summa">{{karantin_come_summa}} сум</td>
+                <td id="total_summa">{{total_summa}} сум</td>
+                <script>
+                        let corp_come_summa = document.getElementById("corp_come_summa");
+                        let kitchen_come_summa = document.getElementById("kitchen_come_summa");
+                        let hoz_come_summa = document.getElementById("hoz_come_summa");
+                        let other_come_summa = document.getElementById("other_come_summa");
+                        let karantin_come_summa = document.getElementById("karantin_come_summa");
+                        let total_summa = document.getElementById("total_summa");
+                        try {
+                            corp_come_summa.innerHTML = prettify({{corp_come_summa}}) + ' сум';
+                            kitchen_come_summa.innerHTML = prettify({{kitchen_come_summa}}) + ' сум';
+                            hoz_come_summa.innerHTML = prettify({{hoz_come_summa}}) + ' сум';
+                            other_come_summa.innerHTML = prettify({{other_come_summa}}) + ' сум';
+                            karantin_come_summa.innerHTML = prettify({{karantin_come_summa}}) + ' сум';
+                            total_summa.innerHTML = prettify({{total_summa}}) + ' сум';
+                        }catch {
+                            alert('error');
+                        }
+                </script>
             </tr>
             <tr>
                 <th>Расход в течении {{item}}</th>
-                <td>{{corp_summa_order_total}} сум</td>
-                <td>{{kitchen_summa_order_total}} сум</td>
-                <td>{{hoz_summa_order_total}} сум</td>
-                <td>{{other_summa_order_total}} сум</td>
-                <td>{{karantin_summa_order_total}} сум</td>
-                <td>{{total_order_summa}} сум</td>
+                <td id="corp_summa_order_total">{{corp_summa_order_total}} сум</td>
+                <td id="kitchen_summa_order_total">{{kitchen_summa_order_total}} сум</td>
+                <td id="hoz_summa_order_total">{{hoz_summa_order_total}} сум</td>
+                <td id="other_summa_order_total">{{other_summa_order_total}} сум</td>
+                <td id="karantin_summa_order_total">{{karantin_summa_order_total}} сум</td>
+                <td id="total_order_summa">{{total_order_summa}} сум</td>
+                                <script>
+                        let corp_summa_order_total = document.getElementById("corp_summa_order_total");
+                        let kitchen_summa_order_total = document.getElementById("kitchen_summa_order_total");
+                        let hoz_summa_order_total = document.getElementById("hoz_summa_order_total");
+                        let other_summa_order_total = document.getElementById("other_summa_order_total");
+                        let karantin_summa_order_total = document.getElementById("karantin_summa_order_total");
+                        let total_order_summa = document.getElementById("total_order_summa");
+                        try {
+                            corp_summa_order_total.innerHTML = prettify({{corp_summa_order_total}}) + ' сум';
+                            kitchen_summa_order_total.innerHTML = prettify({{kitchen_summa_order_total}}) + ' сум';
+                            hoz_summa_order_total.innerHTML = prettify({{hoz_summa_order_total}}) + ' сум';
+                            other_summa_order_total.innerHTML = prettify({{other_summa_order_total}}) + ' сум';
+                            karantin_summa_order_total.innerHTML = prettify({{karantin_summa_order_total}}) + ' сум';
+                            total_order_summa.innerHTML = prettify({{total_order_summa}}) + ' сум';
+                        }catch {
+                            alert('error');
+                        }
+                </script>
             </tr>
             <tr>
                 <th>Возвраты остатков {{item}}</th>
@@ -92,12 +136,30 @@
             </tr>
             <tr>
                 <th>Остаток на {{item}}</th>
-                <td>{{corp_ost}} сум</td>
-                <td>{{kitchen_ost}} сум</td>
-                <td>{{hoz_ost}} сум</td>
-                <td>{{other_ost}} сум</td>
-                <td>{{karantin_ost}} сум</td>
-                <td>{{total_ost}} сум</td>
+                <td id="corp_ost">{{corp_ost}} сум</td>
+                <td id="kitchen_ost">{{kitchen_ost}} сум</td>
+                <td id="hoz_ost">{{hoz_ost}} сум</td>
+                <td id="other_ost">{{other_ost}} сум</td>
+                <td id="karantin_ost">{{karantin_ost}} сум</td>
+                <td id="total_ost">{{total_ost}} сум</td>
+                <script>
+                        let corp_ost = document.getElementById("corp_ost");
+                        let kitchen_ost = document.getElementById("kitchen_ost");
+                        let hoz_ost = document.getElementById("hoz_ost");
+                        let other_ost = document.getElementById("other_ost");
+                        let karantin_ost = document.getElementById("karantin_ost");
+                        let total_ost = document.getElementById("total_ost");
+                        try {
+                            corp_ost.innerHTML = prettify({{corp_ost}}) + ' сум';
+                            kitchen_ost.innerHTML = prettify({{kitchen_ost}}) + ' сум';
+                            hoz_ost.innerHTML = prettify({{hoz_ost}}) + ' сум';
+                            other_ost.innerHTML = prettify({{other_ost}}) + ' сум';
+                            karantin_ost.innerHTML = prettify({{karantin_ost}}) + ' сум';
+                            total_ost.innerHTML = prettify({{total_ost}}) + ' сум';
+                        }catch {
+                            alert('error');
+                        }
+                </script>
             </tr>
             </tbody>
         </table>
@@ -123,6 +185,10 @@
 
     .btn__edit:focus {
         outline: none;
+    }
+
+    tr td {
+        font-size: 12px !important;
     }
 </style>
 <script type="text/javascript">
