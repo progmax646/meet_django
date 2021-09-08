@@ -27,10 +27,15 @@
     <a href="{% url 'account.create-order'%}" class="btn-a mt-4">Расход</a>
     <a href="{% url 'account.create'%}" class="btn-a mt-4">Приход</a>
     </div>
-    
 
 </div>
-
+<script>
+                            function prettify(num) {
+                            var n = num.toString();
+                            var separator = " ";
+                            return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+                        }
+</script>
 {% include 'account/table.html' %}
 
 {% endblock %}
