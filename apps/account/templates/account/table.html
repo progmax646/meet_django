@@ -62,9 +62,9 @@
                 {% for item in remainders %}
                     <td id="ost_summa{{item.id}}">{{item.summa}} сум</td>
                     <script>
-                        let summa = document.getElementById("ost_summa{{item.id}}");
+                        let summa{{item.id}} = document.getElementById("ost_summa{{item.id}}");
                         try {
-                            summa.innerHTML = prettify({{item.summa}}) + ' сум';
+                            summa{{item.id}}.innerHTML = prettify({{item.summa}}) + ' сум';
                         }catch {
                             alert('error');
                         }
