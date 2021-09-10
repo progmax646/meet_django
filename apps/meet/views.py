@@ -54,7 +54,7 @@ def search_notification(request=None):
             try:
                 url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
                 params = {
-                    'chat_id': '272339311',
+                    'chat_id': '7339360',
                     'text': f'❗️Встреча «{meet.client_name}» запланирована на сегодня в {timezone.localtime(meet.date).strftime("%H:%M")}'
                 }
                 requests.get(url=url, params=params)
