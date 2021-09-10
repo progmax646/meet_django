@@ -1,0 +1,56 @@
+{% extends 'account/base.html' %}
+
+{% block 'content'%}
+<div class="container">
+  <button class="btn-a" onclick="goBack()" style="display: block;">Назад</button>
+  <h4 style="margin-top: 70px; margin-bottom: 25px;">Приход денежных средств в {{category.name}}</h4>
+  <table class="table">
+  <thead>
+  <tr>
+
+    <th>Наименование прихода</th>
+    <th>Дата</th>
+    <th>Сумма</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for item in comings %}
+  <tr>
+    <td>{{item.description}}</td>
+    <td>{{item.date}}</td>
+    <td id="summa{{item.id}}">{{item.summa}} сум</td>
+    <script>
+      function prettify(num) {
+         var n = num.toString();
+         var separator = " ";
+         return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+       }
+      let summa{{item.id}} = document.getElementById("summa{{item.id}}");
+      try {
+        summa{{item.id}}.innerHTML = prettify({{item.summa}}) + ' сум';
+      }catch {
+        alert('error');
+      }
+    </script>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td colspan="2" style="font-weight: bold;">Итого:</td>
+    <td id="total">{{total_summa}} сум</td>
+
+  </tr>
+  </tbody>
+</table>
+</div>
+<script>
+      let total = document.getElementById("total");
+      try {
+        total.innerHTML = "<strong>"+prettify({{total_summa}})+"  сум</strong>";
+      }catch {
+        alert('error');
+      }
+function goBack() {
+  window.history.back();
+}
+</script>
+{% endblock %}
