@@ -5,10 +5,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
-import re
-import locale
-import random
+from datetime import datetime, date
 from . import modules
 
 
@@ -391,3 +388,17 @@ def close_month(request):
             n = n + 1
 
         return HttpResponse('success')
+
+
+# приходы
+
+def get_coming(request, category, year, month):
+    date_format = date(day=1, year=year, month=month)
+    category = Account_category.objects.get(pk=category)
+    comings = Account_coming.objects.filter(category=category).filter(date__gte=date_format)
+
+    total_summa = []
+    for come in comings:
+        total_summa.append(come.summa)
+
+    return render(request, 'account/come_summa.html', {'comings':comings, 'category':category, 'total_summa':sum(total_summa)})

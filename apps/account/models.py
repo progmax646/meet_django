@@ -56,6 +56,7 @@ class Account_order(models.Model):
 class Account_coming(models.Model):
     category = models.ForeignKey(Account_category, on_delete=models.CASCADE)
     summa = models.IntegerField()
+    description = models.TextField(null=True)
     date = models.DateField()
     created_at = models.DateTimeField(auto_now=True, auto_now_add=False)
 

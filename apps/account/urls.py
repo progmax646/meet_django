@@ -12,4 +12,5 @@ urlpatterns = [
     path('order-podcategory/<int:id>/<date>', views.podorder_views, name='account.podorder'),
     path('edit-budget/<int:id>', views.edit_budget, name='account.budget_edit'),
     path('close-month', views.close_month),
+    path('coming/<int:category>/<int:year>/<int:month>', views.get_coming, name='get_come'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

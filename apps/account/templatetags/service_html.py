@@ -11,3 +11,13 @@ def get_month_day(month):
     t2 = month+'-01'
     t = datetime.fromisoformat(t2).strftime('%B')
     return t
+
+
+@register.simple_tag
+def get_year_month(date):
+    s = date.split('-')
+    result = {
+        'year':s[0],
+        'month':s[1]
+    }
+    return result
