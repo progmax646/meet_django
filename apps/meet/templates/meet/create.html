@@ -23,7 +23,7 @@
 						</div>
 						<div class="form-group">
 							<label for="date-meet">Дата и время</label><br>
-							<input type="datetime-local" name="date-meet" id="date-meet">
+							<input type="datetime-local" name="date-meet" id="date-meet" onchange="getMeetThisTime()">
 						</div>
 						<!--  -->
 						<div class="form-group" style="display:inline-flex;">
@@ -44,6 +44,9 @@
 							<label for="">Добавить комментарий</label>
 							<input type="text" name="comment">
 						</div>
+					</div>
+					<div id="block_notification" style="display: none; background-color: #f86161; color: white;">
+						<p>Скрипт сработал</p>
 					</div>
 					<div id="create-btn-group">
 						<button type="submit" class="btn-use">Создать</button>
@@ -77,6 +80,16 @@
 					document.getElementById('hidden_form1').style.display = 'none';
 				}
 				console.log(event.value);
+			}
+
+			function getMeetThisTime(){
+				let timedate = document.getElementById("date-meet").value
+
+				$.post("/meet/find-time-to-meet", { timedate: timedate})
+					.done(function(data) {
+						$('#block_notification').css('display', 'inherit');
+						$('#block_notification').html(data);
+				});
 			}
 		</script>
 		<style>

@@ -226,3 +226,11 @@ def edit_reserve(request):
         return redirect('/meet')
 
 # функция проверки встреч
+
+
+@csrf_exempt
+def find_time_to_meet(request):
+    if request.method == 'POST':
+        date = request.POST['timedate']
+        meet = Task_meet.objects.filter(date=date)
+        return render(request, 'meet/notification.html', {'meet':meet})

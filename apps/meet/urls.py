@@ -17,6 +17,7 @@ urlpatterns = [
     path('edit/reserve/<int:id>', views.get_reserve_page, name='reserve_page'),
     path('edit/reserve', views.edit_reserve, name='reserve'),
     path('get-notification/asd/api', views.search_notification),
+    path('find-time-to-meet', views.find_time_to_meet, name='find_time_meet'),
 
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_URL}),
 ]
