@@ -1,12 +1,13 @@
-from django.shortcuts import render, HttpResponse, redirect
-from .models import Account_podcategory, Account_category, Account_coming, Account_order, Budget, Color_order, Remainder
-from datetime import date
-from django.views.decorators.csrf import csrf_protect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from datetime import datetime, date
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, HttpResponse, redirect
+from django.views.decorators.csrf import csrf_protect
+
 from . import modules
+from .models import Account_podcategory, Account_category, Account_coming, Account_order, Budget, Color_order, Remainder
 
 
 def login_account(request):
@@ -71,12 +72,10 @@ def index(request):
     for kitchen_come_sum in kitchen_comings:
         kitchen_come_summa.append(kitchen_come_sum.summa)
 
-
     # приходы хоз товары
     hoz_come_summa = []
     for hoz_come_sum in hoz_comings:
         hoz_come_summa.append(hoz_come_sum.summa)
-
 
     # приходы прочие разовые расходы
     other_come_summa = []
@@ -90,7 +89,8 @@ def index(request):
 
     # всего приход
 
-    total_come_summa = sum(corp_come_summa)+sum(kitchen_come_summa)+sum(other_come_summa)+sum(karantin_come_summa)+sum(hoz_come_summa)
+    total_come_summa = sum(corp_come_summa) + sum(kitchen_come_summa) + sum(other_come_summa) + sum(
+        karantin_come_summa) + sum(hoz_come_summa)
 
     # расходы
 
@@ -133,37 +133,43 @@ def index(request):
         karantin_summa_order_total.append(karantin_order_item.summa)
 
     # всего расход
-    total_order_summa = sum(corp_summa_order_total) + sum(kitchen_summa_order_total) + sum(other_summa_order_total) + sum(karantin_summa_order_total) + sum(hoz_summa_order_total)
+    total_order_summa = sum(corp_summa_order_total) + sum(kitchen_summa_order_total) + sum(
+        other_summa_order_total) + sum(karantin_summa_order_total) + sum(hoz_summa_order_total)
 
     # остатки
     for ost_corp in corp_remainders:
-        corp_ost = (sum(corp_come_summa)+ost_corp.summa)-sum(corp_summa_order_total)
+        corp_ost = (sum(corp_come_summa) + ost_corp.summa) - sum(corp_summa_order_total)
 
     for ost_kitchen in kitchen_remainders:
-        kitchen_ost = (sum(kitchen_come_summa)+ost_kitchen.summa)-sum(kitchen_summa_order_total)
+        kitchen_ost = (sum(kitchen_come_summa) + ost_kitchen.summa) - sum(kitchen_summa_order_total)
 
     for ost_hoz in hoz_remainders:
-        hoz_ost = (sum(hoz_come_summa)+ost_hoz.summa) - sum(hoz_summa_order_total)
+        hoz_ost = (sum(hoz_come_summa) + ost_hoz.summa) - sum(hoz_summa_order_total)
 
     for ost_other in other_remainders:
-        other_ost = (sum(other_come_summa)+ost_other.summa)- sum(other_summa_order_total)
+        other_ost = (sum(other_come_summa) + ost_other.summa) - sum(other_summa_order_total)
 
     for ost_karantin in karantin_remainders:
-        karantin_ost = (sum(karantin_come_summa)+ost_karantin.summa) - sum(karantin_summa_order_total)
+        karantin_ost = (sum(karantin_come_summa) + ost_karantin.summa) - sum(karantin_summa_order_total)
 
+    total_ost = corp_ost + kitchen_ost + hoz_ost + other_ost + karantin_ost
 
-    total_ost = corp_ost+kitchen_ost+hoz_ost+other_ost+karantin_ost
-
-
-    return render(request, 'account/index.html', {'categories':categories, 'corp_come_summa':sum(corp_come_summa),
-                                                  'kitchen_come_summa':sum(kitchen_come_summa), 'hoz_come_summa':sum(hoz_come_summa),
-                                                  'other_come_summa':sum(other_come_summa), 'karantin_come_summa':sum(karantin_come_summa),
-                                                  'total_summa':total_come_summa, 'corp_summa_order_total':sum(corp_summa_order_total),
-                                                  'kitchen_summa_order_total':sum(kitchen_summa_order_total), 'hoz_summa_order_total':sum(hoz_summa_order_total),
-                                                  'other_summa_order_total':sum(other_summa_order_total), 'karantin_summa_order_total':sum(karantin_summa_order_total),
-                                                  'total_order_summa':total_order_summa, 'corp_ost':corp_ost, 'kitchen_ost':kitchen_ost,'hoz_ost':hoz_ost,
-                                                  'other_ost':other_ost, 'karantin_ost': karantin_ost, 'total_ost':total_ost, 'month':month, 'budjets':budjets,
-                                                  'remainders':remainders})
+    return render(request, 'account/index.html', {'categories': categories, 'corp_come_summa': sum(corp_come_summa),
+                                                  'kitchen_come_summa': sum(kitchen_come_summa),
+                                                  'hoz_come_summa': sum(hoz_come_summa),
+                                                  'other_come_summa': sum(other_come_summa),
+                                                  'karantin_come_summa': sum(karantin_come_summa),
+                                                  'total_summa': total_come_summa,
+                                                  'corp_summa_order_total': sum(corp_summa_order_total),
+                                                  'kitchen_summa_order_total': sum(kitchen_summa_order_total),
+                                                  'hoz_summa_order_total': sum(hoz_summa_order_total),
+                                                  'other_summa_order_total': sum(other_summa_order_total),
+                                                  'karantin_summa_order_total': sum(karantin_summa_order_total),
+                                                  'total_order_summa': total_order_summa, 'corp_ost': corp_ost,
+                                                  'kitchen_ost': kitchen_ost, 'hoz_ost': hoz_ost,
+                                                  'other_ost': other_ost, 'karantin_ost': karantin_ost,
+                                                  'total_ost': total_ost, 'month': month, 'budjets': budjets,
+                                                  'remainders': remainders})
 
 
 @login_required(login_url='/account/login')
@@ -173,6 +179,7 @@ def create(request):
         category_id = request.POST['category']
         summa = request.POST['summa']
         date = request.POST['date']
+        desc_summa = request.POST['desc_summa']
 
         category = Account_category.objects.get(pk=category_id)
         # создание прихода
@@ -184,6 +191,7 @@ def create(request):
         coming.category = category
         coming.date = date
         coming.summa = summa
+        coming.description = desc_summa
 
         try:
             coming.save()
@@ -191,9 +199,8 @@ def create(request):
         except Exception as e:
             return HttpResponse(e)
 
-
     categories = Account_category.objects.all()
-    return render(request, 'account/create.html', {'categories':categories})
+    return render(request, 'account/create.html', {'categories': categories})
 
 
 # создание расхода
@@ -212,7 +219,7 @@ def create_order(request):
         description = request.POST['description']
         date = request.POST['date']
 
-    #     creating order
+        #     creating order
         category = Account_category.objects.get(pk=category_s)
         if color_obj:
             color = color_obj
@@ -233,7 +240,9 @@ def create_order(request):
 
     account_categories = Account_category.objects.all()
     account_podcategories = Account_podcategory.objects.all()
-    return render(request, 'account/create_order.html', {'account_categories':account_categories, 'account_podcategories':account_podcategories, 'date':date})
+    return render(request, 'account/create_order.html',
+                  {'account_categories': account_categories, 'account_podcategories': account_podcategories,
+                   'date': date})
 
 
 @csrf_protect
@@ -323,22 +332,33 @@ def order_views(request, id):
         for i in total_corp_order:
             total_c.append(i.summa)
 
-        return render(request, 'account/table_order_corp.html', {'internet_orders_summa':format(sum(internet_orders_summa), '10,d'), 'tel_orders_summa':format(sum(tel_orders_summa), '10,d'),
-                                                                 'travel_orders_summa':format(sum(travel_orders_summa), '10,d'), 'proezd_orders_summa':format(sum(proezd_orders_summa), '10,d'),
-                                                                 'mob_orders_summa':format(sum(mob_orders_summa), '10,d'), 'cur_orders_summa':format(sum(cur_orders_summa), '10,d'), 'pech_orders_summa':format(sum(pech_orders_summa), '10,d'),
-                                                                 'ecp_orders_summa':format(sum(ecp_orders_summa), '10,d'), 'com_orders_summa':format(sum(com_orders_summa), '10,d'),
-                                                                 'other_orders_summa':format(sum(other_orders_summa), '10,d'), 'raz_orders_summa':format(sum(raz_orders_summa), '10,d'), 'total_c':format(sum(total_c), '10,d'), 'date':date,
-                                                                 'internet_orders':internet_orders,'tel_orders':tel_orders, 'travel_orders':travel_orders, 'proezd_orders':proezd_orders, 'mob_orders':mob_orders,
-                                                                 'cur_orders':cur_orders, 'pech_orders':pech_orders, 'ecp_orders':ecp_orders, 'com_orders':com_orders,'other_orders':other_orders, 'raz_orders':raz_orders,
+        return render(request, 'account/table_order_corp.html',
+                      {'internet_orders_summa': format(sum(internet_orders_summa), '10,d'),
+                       'tel_orders_summa': format(sum(tel_orders_summa), '10,d'),
+                       'travel_orders_summa': format(sum(travel_orders_summa), '10,d'),
+                       'proezd_orders_summa': format(sum(proezd_orders_summa), '10,d'),
+                       'mob_orders_summa': format(sum(mob_orders_summa), '10,d'),
+                       'cur_orders_summa': format(sum(cur_orders_summa), '10,d'),
+                       'pech_orders_summa': format(sum(pech_orders_summa), '10,d'),
+                       'ecp_orders_summa': format(sum(ecp_orders_summa), '10,d'),
+                       'com_orders_summa': format(sum(com_orders_summa), '10,d'),
+                       'other_orders_summa': format(sum(other_orders_summa), '10,d'),
+                       'raz_orders_summa': format(sum(raz_orders_summa), '10,d'),
+                       'total_c': format(sum(total_c), '10,d'), 'date': date,
+                       'internet_orders': internet_orders, 'tel_orders': tel_orders, 'travel_orders': travel_orders,
+                       'proezd_orders': proezd_orders, 'mob_orders': mob_orders,
+                       'cur_orders': cur_orders, 'pech_orders': pech_orders, 'ecp_orders': ecp_orders,
+                       'com_orders': com_orders, 'other_orders': other_orders, 'raz_orders': raz_orders,
 
-                                                                 })
+                       })
     else:
         account_category = Account_category.objects.get(pk=id)
         account_orders = Account_order.objects.filter(date__startswith=date, category=account_category)
         total_order_summa = []
         for item in account_orders:
             total_order_summa.append(item.summa)
-        return render(request, 'account/table_order.html', {'account_orders':account_orders, 'total_order_summa':format(sum(total_order_summa), '10,d')})
+        return render(request, 'account/table_order.html',
+                      {'account_orders': account_orders, 'total_order_summa': format(sum(total_order_summa), '10,d')})
 
 
 def podorder_views(request, id, date):
@@ -348,7 +368,8 @@ def podorder_views(request, id, date):
     for item in account_orders:
         total_order_summa.append(item.summa)
 
-    return render(request, 'account/table_podcategory_order.html', {'account_orders':account_orders, 'total_order_summa':format(sum(total_order_summa), '10,d')})
+    return render(request, 'account/table_podcategory_order.html',
+                  {'account_orders': account_orders, 'total_order_summa': format(sum(total_order_summa), '10,d')})
 
 
 def edit_budget(request, id):
@@ -401,4 +422,5 @@ def get_coming(request, category, year, month):
     for come in comings:
         total_summa.append(come.summa)
 
-    return render(request, 'account/come_summa.html', {'comings':comings, 'category':category, 'total_summa':sum(total_summa)})
+    return render(request, 'account/come_summa.html',
+                  {'comings': comings, 'category': category, 'total_summa': sum(total_summa)})

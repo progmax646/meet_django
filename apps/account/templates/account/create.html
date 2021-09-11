@@ -3,7 +3,7 @@
 {% block 'content'%}
 <div class="contaner">
     <div class="row mt-5">
-        <div class="col-md-3 offset-md-4">
+        <div class="col-md-3 offset-md-5 mt-5">
             <h4>Добавить приход</h4>
             <form action="{% url 'account.create' %}" method="POST">
                 {% csrf_token %}
@@ -18,6 +18,10 @@
                 <div class="form-group">
                     <label for="">Укажите сумму прихода</label>
                     <input type="text" class="form-control" name="summa">
+                </div>
+                <div class="form-group">
+                    <label for="">Укажите описание прихода</label>
+                    <input type="text" class="form-control" name="desc_summa" required>
                 </div>
                 <div class="form-group">
                     <label for="">Дата прихода</label>
