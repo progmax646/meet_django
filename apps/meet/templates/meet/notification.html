@@ -1,5 +1,10 @@
 {% if meet %}
 {% for item in meet %}
 <p style="padding: 15px;"> На это время уже забронирована встреча c <strong>{{item.client_name}}</strong></p>
+<script>
+    let btn = $("#btn-sub").prop('type', 'button');
+    btn.css('background-color', '#e17e80');
+</script>
 {% endfor %}
+
 {% endif %}

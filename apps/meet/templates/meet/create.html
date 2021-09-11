@@ -49,7 +49,7 @@
 						<p>Скрипт сработал</p>
 					</div>
 					<div id="create-btn-group">
-						<button type="submit" class="btn-use">Создать</button>
+						<button type="submit" class="btn-use" id="btn-sub">Создать</button>
 						<a href="{% url 'meet_index' %}" class="btn-use">Назад</a>
 					</div>
 				</form>
@@ -84,7 +84,8 @@
 
 			function getMeetThisTime(){
 				let timedate = document.getElementById("date-meet").value
-
+				let btn = $("#btn-sub").prop('type', 'submit');
+				btn.css('background-color', '#EE1D23');
 				$.post("/meet/find-time-to-meet", { timedate: timedate})
 					.done(function(data) {
 						$('#block_notification').css('display', 'inherit');
