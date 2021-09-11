@@ -1,0 +1,5 @@
+{% if meet %}
+{% for item in meet %}
+<p style="padding: 15px;"> На это время уже забронирована встреча c <strong>{{item.client_name}}</strong></p>
+{% endfor %}
+{% endif %}
