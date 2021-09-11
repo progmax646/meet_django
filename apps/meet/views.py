@@ -232,5 +232,6 @@ def edit_reserve(request):
 def find_time_to_meet(request):
     if request.method == 'POST':
         date = request.POST['timedate']
-        meet = Task_meet.objects.filter(date=date)
+        meet = Task_meet.objects.filter(date=date) \
+                                .filter(status=0)
         return render(request, 'meet/notification.html', {'meet':meet})
