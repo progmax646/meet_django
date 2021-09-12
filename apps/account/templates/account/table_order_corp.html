@@ -14,7 +14,16 @@
         <td><a data-tab="link1" class="table__link" href="/account/order-podcategory/1/{{date}}">Интернет <i class="fa fa-chevron-right"></i></a>
        
         </td>
-        <td>{{internet_orders_summa}} сум</td>
+        <td id="internet_orders_summa">{{internet_orders_summa}} сум</td>
+        <script>
+            let internet_orders_summa = document.getElementById("internet_orders_summa");
+            try {
+                internet_orders_summa.innerHTML = prettify({{internet_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
+
         {% for item in internet_orders %}
             
         <tr style="padding: 0;background-color: {{item.color.color}};" class="table__tr link1" >
@@ -38,7 +47,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link2" class="table__link" href="/account/order-podcategory/2/{{date}}">Телефонная связь <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{tel_orders_summa}} сум</td>
+        <td id="tel_orders_summa">{{tel_orders_summa}} сум</td>
+        <script>
+            let tel_orders_summa = document.getElementById("tel_orders_summa");
+            try {
+                tel_orders_summa.innerHTML = prettify({{tel_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in tel_orders %}
             <tr style="padding: 0;" class="table__tr link2" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -59,7 +76,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link3" class="table__link" href="/account/order-podcategory/3/{{date}}">Поездки на такси/личное авто <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{travel_orders_summa}} сум</td>
+        <td id="travel_orders_summa">{{travel_orders_summa}} сум</td>
+        <script>
+            let travel_orders_summa = document.getElementById("travel_orders_summa");
+            try {
+                travel_orders_summa.innerHTML = prettify({{travel_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in travel_orders %}
             <tr style="padding: 0;" class="table__tr link3" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -80,7 +105,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link4" class="table__link" href="/account/order-podcategory/4/{{date}}">Проездные карточки <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{proezd_orders_summa}} сум</td>
+        <td id="proezd_orders_summa">{{proezd_orders_summa}} сум</td>
+        <script>
+            let proezd_orders_summa = document.getElementById("proezd_orders_summa");
+            try {
+                proezd_orders_summa.innerHTML = prettify({{proezd_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in proezd_orders %}
             <tr style="padding: 0;" class="table__tr link4" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -101,7 +134,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link5" class="table__link" href="/account/order-podcategory/5/{{date}}">Мобильная связь <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{mob_orders_summa}} сум</td>
+        <td id="mob_orders_summa">{{mob_orders_summa}} сум</td>
+        <script>
+            let mob_orders_summa = document.getElementById("mob_orders_summa");
+            try {
+                mob_orders_summa.innerHTML = prettify({{mob_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in mob_orders %}
             <tr style="padding: 0;" class="table__tr link5" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -122,7 +163,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link6" class="table__link" href="/account/order-podcategory/6/{{date}}">Расход по курьеру/топливо <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{cur_orders_summa}} сум</td>
+        <td id="cur_orders_summa">{{cur_orders_summa}} сум</td>
+        <script>
+            let cur_orders_summa = document.getElementById("cur_orders_summa");
+            try {
+                cur_orders_summa.innerHTML = prettify({{cur_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in cur_orders %}
             <tr style="padding: 0;" class="table__tr link6" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -142,7 +191,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link7" class="table__link" href="/account/order-podcategory/7/{{date}}">Печати для клиентов <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{pech_orders_summa}} сум</td>
+        <td id="pech_orders_summa">{{pech_orders_summa}} сум</td>
+        <script>
+            let pech_orders_summa = document.getElementById("pech_orders_summa");
+            try {
+                pech_orders_summa.innerHTML = prettify({{pech_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in pech_orders %}
             <tr style="padding: 0;" class="table__tr link7" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -162,7 +219,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link8" class="table__link" href="/account/order-podcategory/8/{{date}}">Эцп ключи для клиентов <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{ecp_orders_summa}} сум</td>
+        <td id="ecp_orders_summa">{{ecp_orders_summa}} сум</td>
+        <script>
+            let ecp_orders_summa = document.getElementById("ecp_orders_summa");
+            try {
+                ecp_orders_summa.innerHTML = prettify({{ecp_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in ecp_orders %}
             
             <tr style="padding: 0;" class="table__tr link8" >
@@ -184,7 +249,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link9" class="table__link" href="/account/order-podcategory/9/{{date}}">Коммунальные услуги офиса <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{com_orders_summa}} сум</td>
+        <td id="com_orders_summa">{{com_orders_summa}} сум</td>
+        <script>
+            let com_orders_summa = document.getElementById("com_orders_summa");
+            try {
+                com_orders_summa.innerHTML = prettify({{com_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in com_orders %}
             <tr style="padding: 0;" class="table__tr link9" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -205,7 +278,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link10" class="table__link" href="/account/order-podcategory/10/{{date}}">Почтовые расходы <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{other_orders_summa}} сум</td>
+        <td id="other_orders_summa">{{other_orders_summa}} сум</td>
+        <script>
+            let other_orders_summa = document.getElementById("other_orders_summa");
+            try {
+                other_orders_summa.innerHTML = prettify({{other_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in other_orders %}
             <tr style="padding: 0; background-color: {{item.color.color}};" class="table__tr link10" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>
@@ -226,7 +307,15 @@
     <tr>
         <td></td>
         <td><a data-tab="link11" class="table__link" href="/account/order-podcategory/11/{{date}}">Разовые расходы из корп средств <i class="fa fa-chevron-right"></i></a></td>
-        <td>{{raz_orders_summa}} сум</td>
+        <td id="raz_orders_summa">{{raz_orders_summa}} сум</td>
+        <script>
+            let raz_orders_summa = document.getElementById("raz_orders_summa");
+            try {
+                raz_orders_summa.innerHTML = prettify({{raz_orders_summa}}) + ' сум';
+            }catch {
+                alert('error');
+            }
+        </script>
             {% for item in raz_orders %}
             <tr style="padding: 0; background-color: {{item.color.color}};" class="table__tr link11" >
                 <td style="padding: 0;"><div style="background-color: {{item.color.color}};">{{item.date}}</div></td>

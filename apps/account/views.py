@@ -332,25 +332,24 @@ def order_views(request, id):
         total_c = []
         for i in total_corp_order:
             total_c.append(i.summa)
-
+        print(total_c)
         return render(request, 'account/table_order_corp.html',
-                      {'internet_orders_summa': format(sum(internet_orders_summa), '10,d'),
-                       'tel_orders_summa': format(sum(tel_orders_summa), '10,d'),
-                       'travel_orders_summa': format(sum(travel_orders_summa), '10,d'),
-                       'proezd_orders_summa': format(sum(proezd_orders_summa), '10,d'),
-                       'mob_orders_summa': format(sum(mob_orders_summa), '10,d'),
-                       'cur_orders_summa': format(sum(cur_orders_summa), '10,d'),
-                       'pech_orders_summa': format(sum(pech_orders_summa), '10,d'),
-                       'ecp_orders_summa': format(sum(ecp_orders_summa), '10,d'),
-                       'com_orders_summa': format(sum(com_orders_summa), '10,d'),
-                       'other_orders_summa': format(sum(other_orders_summa), '10,d'),
-                       'raz_orders_summa': format(sum(raz_orders_summa), '10,d'),
-                       'total_c': format(sum(total_c), '10,d'), 'date': date,
+                      {'internet_orders_summa': sum(internet_orders_summa),
+                       'tel_orders_summa': sum(tel_orders_summa),
+                       'travel_orders_summa': sum(travel_orders_summa),
+                       'proezd_orders_summa': sum(proezd_orders_summa),
+                       'mob_orders_summa': sum(mob_orders_summa),
+                       'cur_orders_summa': sum(cur_orders_summa),
+                       'pech_orders_summa': sum(pech_orders_summa),
+                       'ecp_orders_summa': sum(ecp_orders_summa),
+                       'com_orders_summa': sum(com_orders_summa),
+                       'other_orders_summa': sum(other_orders_summa),
+                       'raz_orders_summa': sum(raz_orders_summa),
+                       'total_c': sum(total_c), 'date': date,
                        'internet_orders': internet_orders, 'tel_orders': tel_orders, 'travel_orders': travel_orders,
                        'proezd_orders': proezd_orders, 'mob_orders': mob_orders,
                        'cur_orders': cur_orders, 'pech_orders': pech_orders, 'ecp_orders': ecp_orders,
                        'com_orders': com_orders, 'other_orders': other_orders, 'raz_orders': raz_orders,
-
                        })
     else:
         account_category = Account_category.objects.get(pk=id)
