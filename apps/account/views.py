@@ -205,8 +205,8 @@ def create(request):
 
 # создание расхода
 def create_order(request):
-    date = datetime.today().strftime("%Y-%m-%d")
-    color_obj = Color_order.objects.filter(date=date)
+    today = datetime.today().strftime("%Y-%m-%d")
+    # color_obj = Color_order.objects.filter(date=date)
 
     if request.method == 'POST':
         category_s = request.POST['category']
@@ -221,6 +221,7 @@ def create_order(request):
 
         #     creating order
         category = Account_category.objects.get(pk=category_s)
+        color_obj = Color_order.objects.filter(date=date)
         if color_obj:
             color = color_obj
             account_order = Account_order(category=category, podcategory=account_podcategory, summa=summa,
@@ -242,7 +243,7 @@ def create_order(request):
     account_podcategories = Account_podcategory.objects.all()
     return render(request, 'account/create_order.html',
                   {'account_categories': account_categories, 'account_podcategories': account_podcategories,
-                   'date': date})
+                   'date': today})
 
 
 @csrf_protect
@@ -416,7 +417,7 @@ def close_month(request):
 def get_coming(request, category, year, month):
     date_format = date(day=1, year=year, month=month)
     category = Account_category.objects.get(pk=category)
-    comings = Account_coming.objects.filter(category=category).filter(date__gte=date_format)
+    comings = Account_coming.objects.filter(category=category).filter(date__month=month)
 
     total_summa = []
     for come in comings:
