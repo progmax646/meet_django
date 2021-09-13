@@ -22,5 +22,6 @@ urlpatterns = [
     path('menu/', include('menus.urls')),
     path('admin/', admin.site.urls),
     path('meet/', include('meet.urls')),
-    path('account/', include('account.urls'))
+    path('account/', include('account.urls')),
+    path('api/v1/seo/', include('seo.urls')),
 ]
