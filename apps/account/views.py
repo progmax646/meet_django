@@ -249,11 +249,13 @@ def create_order(request):
 @csrf_protect
 def order_views(request, id):
     date = request.POST['date']
+    print(date)
     if id == 1:
         account_category = Account_category.objects.get(pk=id)
         # интернет
         internet_podcategories = Account_podcategory.objects.get(name='Интернет')
-        internet_orders = Account_order.objects.filter(podcategory=internet_podcategories, date__startswith=date)
+        internet_orders = Account_order.objects.filter(podcategory=internet_podcategories, date__startswith=date).\
+                                                order_by('date')
         internet_orders_summa = []
         for internet in internet_orders:
             internet_orders_summa.append(internet.summa)
