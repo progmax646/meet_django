@@ -355,7 +355,7 @@ def order_views(request, id):
                        })
     else:
         account_category = Account_category.objects.get(pk=id)
-        account_orders = Account_order.objects.filter(date__startswith=date, category=account_category)
+        account_orders = Account_order.objects.filter(date__startswith=date, category=account_category).order_by('date')
         total_order_summa = []
         for item in account_orders:
             total_order_summa.append(item.summa)
