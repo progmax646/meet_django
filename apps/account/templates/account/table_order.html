@@ -41,13 +41,12 @@
     {% endfor %}
     <tr>
         <th>Итого расход</th>
-        <td id="total_order_summa">{{total_order_summa}} сум</td>
-        <td></td>
+        <td id="total_order_summa_next" scope="2">{{total_order_summa}}</td>
         <script>
             (() => {
-                var total_order_summa = document.getElementById("total_order_summa");
+                var total_order_summa_next = document.getElementById("total_order_summa_next");
                 try {
-                    total_order_summa.innerHTML = prettify({{total_order_summa}}) + ' сум';
+                    total_order_summa_next.innerHTML = prettify({{total_order_summa}}) + ' сум';
                 }catch {
                     alert('error');
                 }
