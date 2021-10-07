@@ -32,7 +32,7 @@
             <tr id="budjet">
                 <th>Бюджет: </th>
                 {% for budjet in budjets%}
-                <td style=""> <p style="display">{{budjet.summa}} сум</p> <button data-toggle="modal" data-target="#modalEdit{{budjet.id}}" style="border: none; padding: 5px;" class="btn__edit"><span class="fa fa-pencil-square-o"></span></button></td>
+                <td style=""> <p style="display" id="budjet{{budjet.id}}">{{budjet.summa}} сум</p> <button data-toggle="modal" data-target="#modalEdit{{budjet.id}}" style="border: none; padding: 5px;" class="btn__edit"><span class="fa fa-pencil-square-o"></span></button></td>
                 <form action="/account/edit-budget/{{budjet.id}}">
                 <div class="modal fade" id="modalEdit{{budjet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -54,6 +54,14 @@
                   </div>
                 </div>
                 </form>
+                <script>
+                        let budjet{{budjet.id}} = document.getElementById("budjet{{budjet.id}}");
+                        try {
+                            budjet{{budjet.id}}.innerHTML = prettify({{budjet.summa}}) + ' сум';
+                        }catch {internet_orders_summa
+                            alert('error');
+                        }
+                    </script>
                 {% endfor %}
                 <td>---</td>
             </tr>
