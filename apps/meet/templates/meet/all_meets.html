@@ -2,7 +2,7 @@
 {% for meet in meets %}
 {% if meet.status != 1 and meet.status != 2 and meet.type == 1%}
 <tr id="tr_meet{{meet.id}}">
-	<td>{{meet.client_name}}</td>
+	<td>{{meet.client_name}} <span class="meet-type badge badge-primary">Клиент</span></td>
 	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 	<td>{{meet.description}}</td>
 	<td>
@@ -55,6 +55,37 @@
 		</td>
 	</tr>
 {% endif %}
+{% if meet.status != 1 and meet.status != 2 and meet.type == 3 %}
+<tr id="tr_meet{{meet.id}}">
+	<td>{{meet.client_name}} <span class="meet-type badge badge-primary">Сотрудник</span></td>
+	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+	<td>{{meet.description}}</td>
+	<td>
+		{% if meet.status == 0%}
+		<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+		{% elif meet.status == 1%}
+		<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+		{% else %}
+		<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+		{% endif %}
+	</td>
+	<td>
+		<div class="icon-block-meet">
+			<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-pencil-square-o"></i></button>
+			<form action="{% url 'meet_delete' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" value="{{meet.id}}" name="meet_id">
+				<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+			</form>
+			<form action="/meet/success" method="POST">
+				{% csrf_token %}
+				<input type="hidden" value="{{meet.id}}" name="meet_id">
+				<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+			</form>
+		</div>
+	</td>
+</tr>
+{% endif %}
 {% endfor %}
 <tr>
 	<td style="padding: 15px 0 0 0;">
@@ -71,6 +102,40 @@
 	<ol id="pulse-mobile-table" style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
 		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+		<li>Категория:  <span style="margin-left: 54px;" class="badge badge-primary">Клиент</span></li>
+		<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
+		<li>Статус:  <span style="margin-left: 84px;">
+			{% if meet.status == 0%}
+			<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+			{% elif meet.status == 1%}
+			<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+			{% else %}
+			<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+			{% endif %}
+		</span></li>
+		<li>Сервис:  <span>
+			<div class="icon-block-meet" style="margin-left: 68px;">
+				<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button>
+
+				<form action="{% url 'meet_delete' %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{meet.id}}" name="id">
+					<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				</form>
+				<form action="/meet/success" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="{{meet.id}}" name="meet_id">
+					<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+				</form>
+		</span></li>
+
+	</ol>
+	{% endif %}
+	{% if meet.status != 2 and meet.type == 3 %}
+		<ol id="pulse-mobile-table" style="list-style-type: none;"{% if meet.date == today%} class="pulse-item wow backInLeft"{% endif %} class="wow backInLeft">
+		<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
+		<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+		<li>Категория:  <span style="margin-left: 54px;" class="badge badge-primary">Сотрудник</span></li>
 		<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
 		<li>Статус:  <span style="margin-left: 84px;">
 			{% if meet.status == 0%}

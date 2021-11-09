@@ -31,7 +31,8 @@
 			<table class="table" style="z-index: 2">
 				<thead style="background: #EE1D23; color: white; padding: 5px;">
 					<tr>
-						<th>Клиент</th>
+						<th>Наименование</th>
+
 						<th style="width: 120px;">Дата</th>
 						<th>Описание</th>
 						<th>Статус</th>
@@ -42,9 +43,11 @@
 				{% for meet in meets_today %}
 					{% if meet.type == 1%}
 					<tr id="tr_meet{{meet.id}}">
-						<td style="display: relative;">{{meet.client_name}} <span class="meet-type badge badge-primary">
-							Клиент
-						</span></td>
+						<td style="display: relative; width: 220px;">
+							<div style="position: relative; width: 220px;">
+								{{meet.client_name}} <span class="meet-type badge badge-primary">Клиент</span>
+							</div>
+						</td>
 						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 						<td>{{meet.description}}</td>
 						<td>
@@ -134,6 +137,7 @@
 						{% if meet.status != 2%}
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
+							<li>Категория:   <span style="margin-left: 54px;" class="badge badge-primary">Клиент</span></li>
 							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
 							<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
 							<li>Статус:  <span style="margin-left: 84px;">
@@ -179,6 +183,56 @@
 						</div>
 					</div>
 					<!--  -->
+					{% elif meet.type == 3%}
+								<div id="mobile-table">
+						{% if meet.status != 2%}
+						<ol style="list-style-type: none;" id="pulse-mobile-table">
+							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
+							<li>Категория:   <span style="margin-left: 54px;" class="badge badge-primary">Сотрудник</span></li>
+							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+							<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
+							<li>Статус:  <span style="margin-left: 84px;">
+								{% if meet.status == 0%}
+								<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
+								{% elif meet.status == 1%}
+								<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
+								{% else %}
+								<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
+								{% endif %}
+							</span></li>
+							<li>Сервис:  <span>
+								<div class="icon-block-meet" style="margin-left: 68px;">
+								<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px; font-size: 20px;"><i class="fa fa-pencil-square-o"></i></button>
+
+								<form action="{% url 'meet_delete' %}" method="POST">
+									{% csrf_token %}
+									<input type="hidden" value="{{meet.id}}" name="id">
+									<button type="submit" style="font-size: 20px;margin-bottom: 1px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+								</form>
+									<button type="button" style="padding: 10px;padding: 10px; font-size: 20px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+							</span></li>
+						</ol>
+						{% endif %}
+					</div>
+						<div class="modal fade" id="modalEditMeet{{meet.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование даты {{meet.client_name}}</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							         <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							    <div class="modal-body">
+								  <form action="{% url 'meet_edit' %}" method="POST">
+								  <input type="datetime-local" value="{{meet.date}}" name="meet_date" id="meet_edit_date{{meet.id}}">
+								  <input type="hidden" name="meet_id" value="{{meet.id}}">
+								  <button type="button" class="btn-use" onclick="edit_status({{meet.id}})">Сохранить</button>
+								  </form>
+								</div>
+							</div>
+						</div>
+					</div>
 					{% else %}
 					<div id="mobile-table" class="col-10 col-md-9 mob-type">
 						<div class="panel_body">
@@ -320,9 +374,7 @@
 		cursor: pointer;
 	}
 	.meet-type {
-		position: relative;
-		bottom: 12px;
-    	right: 2px;
+
 	}
 </style>
 {% endblock %}
