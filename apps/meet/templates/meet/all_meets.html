@@ -2,42 +2,7 @@
 {% for meet in meets %}
 {% if meet.status != 1 and meet.status != 2 and meet.type == 1%}
 <tr id="tr_meet{{meet.id}}">
-<td style="display: relative;">{{meet.client_name}} <span class="meet-type badge badge-primary">
-							Клиент
-						</span></td>
-	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
-	<td>{{meet.description}}</td>
-	<td>
-		{% if meet.status == 0%}
-		<span class="badge badge-info" style="background-color:#939598;">В процессе</span>
-		{% elif meet.status == 1%}
-		<span class="badge badge-success" style="background-color:#939598;">Завершено</span>
-		{% else %}
-		<span class="badge badge-danger" style="background-color:#939598;">Удалено</span>
-		{% endif %}
-	</td>
-	<td>
-		<div class="icon-block-meet">
-			<button type="button" data-toggle="modal" data-target="#modalEditMeet{{meet.id}}" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-pencil-square-o"></i></button>
-			<form action="{% url 'meet_delete' %}" method="POST">
-				{% csrf_token %}
-				<input type="hidden" value="{{meet.id}}" name="meet_id">
-				<button type="button" style="padding: 10px;width: 40px;height: 40px;" onclick="delete_meet({{meet.id}})"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-			</form>
-			<form action="/meet/success" method="POST">
-				{% csrf_token %}
-				<input type="hidden" value="{{meet.id}}" name="meet_id">
-				<button type="submit" style="padding: 10px;width: 40px;height: 40px;"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
-			</form>
-		</div>
-	</td>
-</tr>
-
-{% else %}
-<tr id="tr_meet{{meet.id}}">
-	<td style="display: relative;">{{meet.client_name}} <span class="meet-type badge badge-primary">
-							Сотрудник
-						</span></td>
+	<td>{{meet.client_name}}</td>
 	<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
 	<td>{{meet.description}}</td>
 	<td>
