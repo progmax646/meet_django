@@ -117,6 +117,26 @@ def create(request):
                 return redirect('/meet')
             except Exception as e:
                 return HttpResponse(e)
+        if int(type) == 3:
+            client_name = request.POST['client-name']
+            description = request.POST['description']
+            datetime2 = parse(request.POST['date-meet'])
+            if 'is_private' in request.POST:
+                is_private = True
+                task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
+                                 status=0, type=type, notification=True)
+
+            else:
+                is_private = False
+                task = Task_meet(user=request.user, client_name=client_name, type=type, description=description, date=datetime2,
+                                 status=0)
+
+            try:
+                print(task.notification)
+                task.save()
+                return redirect('/meet')
+            except Exception as e:
+                return HttpResponse(e)
 
     return render(request, 'meet/create.html')
 
