@@ -88,7 +88,7 @@
                 <td id="hoz_come_summa" style="width: 140px;">{{hoz_come_summa}} сум</td>
                 <td id="other_come_summa" style="width: 140px;">{{other_come_summa}} сум</td>
                 <td id="karantin_come_summa" style="width: 140px;">{{karantin_come_summa}} сум</td>
-                <td id="total_summa" style="width: 140px;"></td>
+                <td id="total_summa" style="width: 140px;">{{total_summa}} сум</td>
                 <script>
                         let corp_come_summa = document.getElementById("corp_come_summa");
                         let kitchen_come_summa = document.getElementById("kitchen_come_summa");
@@ -97,6 +97,7 @@
                         let karantin_come_summa = document.getElementById("karantin_come_summa");
                         let total_summa = document.getElementById("total_summa");
                         try {
+                            total_summa.innerHTML = prettify({{total_summa}}) + ' сум';
                             corp_come_summa.innerHTML = "<a href='/account/coming/1/{{item2.year}}/{{item2.month}}' style='color: black; text-decoration: none;'>"+prettify({{corp_come_summa}}) + ' сум <i class="fa fa-eye" aria-hidden="true"></i>'+"</a>";
                             kitchen_come_summa.innerHTML = "<a href='/account/coming/2/{{item2.year}}/{{item2.month}}' style='color: black; text-decoration: none;'>"+prettify({{kitchen_come_summa}}) + ' сум <i class="fa fa-eye" aria-hidden="true"></i>'+"</a>";
                             hoz_come_summa.innerHTML = "<a href='/account/coming/3/{{item2.year}}/{{item2.month}}' style='color: black; text-decoration: none;'>"+prettify({{hoz_come_summa}}) + ' сум <i class="fa fa-eye" aria-hidden="true"></i>'+"</a>";
