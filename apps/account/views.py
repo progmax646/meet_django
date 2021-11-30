@@ -405,7 +405,7 @@ def close_month(request):
         for item in array:
             remainder = Remainder()
             remainder.category = Account_category.objects.get(pk=n)
-            remainder.date = month
+            remainder.date = month+1
             remainder.summa = item
             remainder.save()
             n = n + 1
