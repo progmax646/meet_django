@@ -36,30 +36,37 @@ def index(request):
     karantin_category = Account_category.objects.get(name='Карантин')
     if request.method == 'POST':
         month = request.POST['month']
-        remainders = Remainder.objects.filter(date=month)
-        corp_remainders = Remainder.objects.filter(date=month).filter(category=corp_category)
-        corp_comings = Account_coming.objects.filter(date__startswith=month).filter(category=corp_category)
-        kitchen_comings = Account_coming.objects.filter(date__startswith=month).filter(category=kitchen_category)
-        kitchen_remainders = Remainder.objects.filter(date=month).filter(category=kitchen_category)
-        hoz_comings = Account_coming.objects.filter(date__startswith=month).filter(category=hoz_category)
-        hoz_remainders = Remainder.objects.filter(date=month).filter(category=hoz_category)
-        other_comings = Account_coming.objects.filter(date__startswith=month).filter(category=other_category)
-        other_remainders = Remainder.objects.filter(date=month).filter(category=other_category)
-        karantin_comings = Account_coming.objects.filter(date__startswith=month).filter(category=karantin_category)
-        karantin_remainders = Remainder.objects.filter(date=month).filter(category=karantin_category)
+        year = request.POST['year']
+        date_table = str(year)+'-'+str(month)
+        remainders = Remainder.objects.filter(date=date_table)
+        if not remainders:
+            m = int(month) - 1
+            return render(request, 'account/remainder.html', {'month': m, 'year': year})
+        corp_remainders = Remainder.objects.filter(date=date_table).filter(category=corp_category)
+        corp_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=corp_category)
+        kitchen_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=kitchen_category)
+        kitchen_remainders = Remainder.objects.filter(date=date_table).filter(category=kitchen_category)
+        hoz_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=hoz_category)
+        hoz_remainders = Remainder.objects.filter(date=date_table).filter(category=hoz_category)
+        other_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=other_category)
+        other_remainders = Remainder.objects.filter(date=date_table).filter(category=other_category)
+        karantin_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=karantin_category)
+        karantin_remainders = Remainder.objects.filter(date=date_table).filter(category=karantin_category)
     else:
-        month = date.today().strftime('%Y-%m')
-        remainders = Remainder.objects.filter(date=month)
-        corp_remainders = Remainder.objects.filter(date=month).filter(category=corp_category)
-        corp_comings = Account_coming.objects.filter(date__startswith=month).filter(category=corp_category)
-        kitchen_comings = Account_coming.objects.filter(date__startswith=month).filter(category=kitchen_category)
-        kitchen_remainders = Remainder.objects.filter(date=month).filter(category=kitchen_category)
-        hoz_comings = Account_coming.objects.filter(date__startswith=month).filter(category=hoz_category)
-        hoz_remainders = Remainder.objects.filter(date=month).filter(category=hoz_category)
-        other_comings = Account_coming.objects.filter(date__startswith=month).filter(category=other_category)
-        other_remainders = Remainder.objects.filter(date=month).filter(category=other_category)
-        karantin_comings = Account_coming.objects.filter(date__startswith=month).filter(category=karantin_category)
-        karantin_remainders = Remainder.objects.filter(date=month).filter(category=karantin_category)
+        date_table = date.today().strftime('%Y-%m')
+        month = date.today().strftime('%m')
+        year = date.today().strftime('%Y')
+        remainders = Remainder.objects.filter(date=date_table)
+        corp_remainders = Remainder.objects.filter(date=date_table).filter(category=corp_category)
+        corp_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=corp_category)
+        kitchen_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=kitchen_category)
+        kitchen_remainders = Remainder.objects.filter(date=date_table).filter(category=kitchen_category)
+        hoz_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=hoz_category)
+        hoz_remainders = Remainder.objects.filter(date=date_table).filter(category=hoz_category)
+        other_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=other_category)
+        other_remainders = Remainder.objects.filter(date=date_table).filter(category=other_category)
+        karantin_comings = Account_coming.objects.filter(date__startswith=date_table).filter(category=karantin_category)
+        karantin_remainders = Remainder.objects.filter(date=date_table).filter(category=karantin_category)
     # категории
 
     # приходы корп
@@ -96,7 +103,7 @@ def index(request):
 
     # корп расходы
 
-    corp_order = Account_order.objects.filter(date__startswith=month).filter(category=corp_category)
+    corp_order = Account_order.objects.filter(date__startswith=date_table).filter(category=corp_category)
     corp_summa_order_total = []
 
     for corp_order_item in corp_order:
@@ -104,21 +111,21 @@ def index(request):
 
     # кухня расходы
 
-    kitchen_order = Account_order.objects.filter(date__startswith=month).filter(category=kitchen_category)
+    kitchen_order = Account_order.objects.filter(date__startswith=date_table).filter(category=kitchen_category)
     kitchen_summa_order_total = []
 
     for kitchen_order_item in kitchen_order:
         kitchen_summa_order_total.append(kitchen_order_item.summa)
 
     # хоз товары расходы
-    hoz_order = Account_order.objects.filter(date__startswith=month).filter(category=hoz_category)
+    hoz_order = Account_order.objects.filter(date__startswith=date_table).filter(category=hoz_category)
     hoz_summa_order_total = []
 
     for hoz_order_item in hoz_order:
         hoz_summa_order_total.append(hoz_order_item.summa)
 
     # прочие расходы
-    other_order = Account_order.objects.filter(date__startswith=month).filter(category=other_category)
+    other_order = Account_order.objects.filter(date__startswith=date_table).filter(category=other_category)
     other_summa_order_total = []
 
     for other_order_item in other_order:
@@ -126,7 +133,7 @@ def index(request):
 
     # карантин
 
-    karantin_order = Account_order.objects.filter(date__startswith=month).filter(category=karantin_category)
+    karantin_order = Account_order.objects.filter(date__startswith=date_table).filter(category=karantin_category)
     karantin_summa_order_total = []
 
     for karantin_order_item in karantin_order:
@@ -168,8 +175,8 @@ def index(request):
                                                   'total_order_summa': total_order_summa, 'corp_ost': corp_ost,
                                                   'kitchen_ost': kitchen_ost, 'hoz_ost': hoz_ost,
                                                   'other_ost': other_ost, 'karantin_ost': karantin_ost,
-                                                  'total_ost': total_ost, 'month': month, 'budjets': budjets,
-                                                  'remainders': remainders})
+                                                  'total_ost': total_ost, 'month': date_table, "m":month, "y": year,
+                                                  'budjets': budjets, 'remainders': remainders})
 
 
 @login_required(login_url='/account/login')
@@ -371,7 +378,7 @@ def podorder_views(request, id, date):
         total_order_summa.append(item.summa)
 
     return render(request, 'account/table_podcategory_order.html',
-                  {'account_orders': account_orders, 'total_order_summa': sum(total_order_summ)})
+                  {'account_orders': account_orders, 'total_order_summa': sum(total_order_summa)})
 
 
 def edit_budget(request, id):
@@ -395,22 +402,29 @@ def close_month(request):
         array.append(other_ost)
         karantin_ost = request.POST['karantin_ost']
         array.append(karantin_ost)
-        total_ost = request.POST['total_ost']
-        array.append(total_ost)
-        month = date.today().strftime('%Y-%m')
-        print(month)
+        month = request.POST['month']
+        new_date = month.split('-')
 
         n = 1
 
         for item in array:
+            print(month)
             remainder = Remainder()
             remainder.category = Account_category.objects.get(pk=n)
-            remainder.date = month+1
+            if month == '2021-12':
+                remainder.date = '2022-01'
+            elif month == '2022-12':
+                remainder.date = '2023-01'
+            else:
+                int(new_date[1]) + 1
+                remainder.data = str(new_date[0])+"-"+str(new_date[1])
+                print(remainder.data)
+                input()
+            n += 1
             remainder.summa = item
             remainder.save()
-            n = n + 1
 
-        return HttpResponse('success')
+        return redirect('/account')
 
 
 # приходы
