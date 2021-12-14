@@ -211,8 +211,10 @@ function main_table(id, name){
 	if(name == 'Корп расходы'){
 		console.log(name);
 	}
-	date = $('#select_month').val();
-	$.post("/account/order-category/"+id, {date:date, "csrfmiddlewaretoken" : "{{csrf_token}}"})
+	month = $('#select_month').val();
+	year = $('#select_year').val();
+	let date_t = year+"-"+month
+	$.post("/account/order-category/"+id, {date:date_t, "csrfmiddlewaretoken" : "{{csrf_token}}"})
 	  .done(function(data) {
 	  	$('#main_table').hide();
 	    $('#table_order').html(data).show();
