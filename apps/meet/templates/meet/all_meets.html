@@ -194,6 +194,9 @@
 				<form action="{% url 'meet_edit' %}" method="POST">
 					<input type="datetime-local" value="{{meet.date}}" name="meet_date" id="meet_edit_date{{meet.id}}">
 					<input type="hidden" name="meet_id" value="{{meet.id}}">
+					<textarea name="" id="meet_edit_text{{meet.id}}" cols="30" rows="10" style="width: 100%;
+    margin-top: 15px;
+}">{{meet.description}}</textarea>
 					<button type="button" class="btn-use" onclick="edit_status({{meet.id}})">Сохранить</button>
 				</form>
 			</div>

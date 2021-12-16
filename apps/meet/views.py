@@ -146,10 +146,15 @@ def create(request):
 def edit(request):
     if request.method == 'POST':
         meet_id = request.POST['id']
-        date = request.POST['date']
-        url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
         meet = Task_meet.objects.get(pk=meet_id)
-        meet.date = date
+        if request.POST['date']:
+            date = request.POST['date']
+            meet.date = date
+        if request.POST['text']:
+            text = request.POST['text']
+            meet.description = text
+
+        url = f'https://api.telegram.org/bot{API_TELEGRAM}/sendMessage'
         meet.status = 0
         meet.save()
         params = {
