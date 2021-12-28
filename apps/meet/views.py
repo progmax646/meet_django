@@ -158,8 +158,8 @@ def edit(request):
         meet.status = 0
         meet.save()
         params = {
-            'chat_id': 1376059804,
-            'text': f'Дата клиента {meet.client_name} на встречу изменена на {meet.date}'
+            'chat_id': '-1001296908744',
+            'text': f'❗️Встреча «{meet.client_name}» была отредактирована'
         }
 
         r = requests.get(url=url, params=params)
