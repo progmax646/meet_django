@@ -258,7 +258,7 @@ def order_views(request, id):
     date = request.POST['date']
     print(date)
     if id == 1:
-        account_category = Account_category.objects.get(pk=id)
+        account_category = Account_category.objects.get(pk=1)
         # интернет
         internet_podcategories = Account_podcategory.objects.get(name='Интернет')
         internet_orders = Account_order.objects.filter(podcategory=internet_podcategories, date__startswith=date).\
@@ -408,7 +408,6 @@ def close_month(request):
         n = 1
 
         for item in array:
-            print(month)
             remainder = Remainder()
             remainder.category = Account_category.objects.get(pk=n)
             if month == '2021-12':
@@ -417,9 +416,7 @@ def close_month(request):
                 remainder.date = '2023-01'
             else:
                 int(new_date[1]) + 1
-                remainder.data = str(new_date[0])+"-"+str(new_date[1])
-                print(remainder.data)
-                input()
+                remainder.date = str(new_date[0])+"-0"+str(datetime.now().month + 1)
             n += 1
             remainder.summa = item
             remainder.save()
