@@ -75,6 +75,8 @@ def index(request):
     meets = Task_meet.objects.all().exclude(date__startswith=today).order_by('date')
     meets_last_update = Task_meet.objects.all().order_by('-created_at')[:5] or 'Not found'
 
+    print(type(meets[0].date))
+
     return render(request, 'meet/index.html',
                   {'meets_today': meets_today, 'meets': meets, 'last_meet': meets_last_update,
                    'today': today})
@@ -86,8 +88,13 @@ def create(request):
         type = request.POST['type']
         print(type)
         if int(type) == 2:
-            date_ot = request.POST['date_ot']
-            date_do = request.POST['date_do']
+            date_ot = None
+            date_do = None
+            if request.POST['date_ot']:
+                date_ot = request.POST['date_ot']
+            if request.POST['date_do']:
+                date_do = request.POST['date_do']
+
             comment = request.POST['comment']
 
             task = Task_meet(user=request.user, type=type, date=date_ot, date_do=date_do,
@@ -101,9 +108,12 @@ def create(request):
         if int(type) == 1:
             client_name = request.POST['client-name']
             description = request.POST['description']
-            datetime2 = parse(request.POST['date-meet'])
-            if 'is_private' in request.POST:
-                is_private = True
+            datetime2 = None
+            is_private = False
+            if request.POST['date-meet']:
+                datetime2 = parse(request.POST['date-meet'])
+                if 'is_private' in request.POST:
+                    is_private = True
                 task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
                                  status=0, notification=True)
 
@@ -121,9 +131,12 @@ def create(request):
         if int(type) == 3:
             client_name = request.POST['client-name']
             description = request.POST['description']
-            datetime2 = parse(request.POST['date-meet'])
-            if 'is_private' in request.POST:
-                is_private = True
+            datetime2 = None
+            is_private = False
+            if request.POST['date-meet']:
+                datetime2 = parse(request.POST['date-meet'])
+                if 'is_private' in request.POST:
+                    is_private = True
                 task = Task_meet(user=request.user, client_name=client_name, description=description, date=datetime2,
                                  status=0, type=type, notification=True)
 

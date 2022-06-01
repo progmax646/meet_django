@@ -48,7 +48,7 @@
 								{{meet.client_name}} <span class="meet-type badge badge-primary">Клиент</span>
 							</div>
 						</td>
-						<td id="meet_date{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+						<td id="meet_date{{meet.id}}"> {% if meet.date == today%} <span id="date-meet">{% else %}<span>{% endif %} {{ meet.date }}</span></td>
 						<td>{{meet.description}}</td>
 						<td>
 							{% if meet.status == 0%}
@@ -103,7 +103,7 @@
 						<td style="display: relative;">{{meet.client_name}} <span class="meet-type badge badge-primary">
 							Сотрудник
 						</span></td>
-						<td id="meet_date2{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %}{{meet.date}}</span></td>
+						<td id="meet_date2{{meet.id}}"> {% if meet.date == today %} <span id="date-meet">{% else %}<span>{% endif %} {% if meet.date %} {{meet.date}} {% else %} Неопр. срок {% endif %}</span></td>
 						<td>{{meet.description}}</td>
 						<td>
 							{% if meet.status == 0%}
@@ -138,7 +138,7 @@
 						<ol style="list-style-type: none;" id="pulse-mobile-table">
 							<li>Наименование:   <span style="margin-left: 15px;">{{meet.client_name}}</span></li>
 							<li>Категория:   <span style="margin-left: 54px;" class="badge badge-primary">Клиент</span></li>
-							<li>Дата встречи:  <span style="margin-left: 30px;">{{meet.date}}</span></li>
+							<li>Дата встречи:  <span style="margin-left: 30px;">{% if meet.date %} {{meet.date}} {% else %} Неопр. срок {% endif %}</span></li>
 							<li><span>Описание:</span> <br><span>{{meet.description}}</span></li>
 							<li>Статус:  <span style="margin-left: 84px;">
 								{% if meet.status == 0%}

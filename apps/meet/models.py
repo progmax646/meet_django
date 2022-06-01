@@ -13,7 +13,7 @@ class Task_meet(models.Model):
     type = models.IntegerField(default=1)
     client_name = models.CharField(max_length=150, null=True)
     description = models.TextField(blank=True, null=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(null=True)
     date_do = models.DateTimeField(null=True)
     status = models.IntegerField()
     notification = models.BooleanField(null=True, default=False)
